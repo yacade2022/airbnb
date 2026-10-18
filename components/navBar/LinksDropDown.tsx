@@ -5,37 +5,28 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import  Link  from 'next/link'
-
-
+import Link from 'next/link'
 
 function LinksDropDown() {
   return (
-    
-    <DropdownMenu  >
-  <DropdownMenuTrigger asChild>
-        <Button variant='outline' className='flex gap-4 max-w-[100px] rounded-3xl'>
-          <LuAlignLeft className='w-6 h-6' />
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant='outline' aria-label='Open menu' className='flex gap-4 max-w-[100px] rounded-3xl'>
+          <LuAlignLeft className='w-6 h-6' aria-hidden />
           <UserIcon />
         </Button>
       </DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuItem>
-      <Link href='/addHomeToList'>
-      Airbnb your home
-      </Link>
-    </DropdownMenuItem>    
-    <DropdownMenuItem>My Favorites</DropdownMenuItem>
-    <DropdownMenuItem>My Reservations</DropdownMenuItem>  
-  </DropdownMenuContent>
-</DropdownMenu>
-   
-    
-
+      <DropdownMenuContent align='end'>
+        {/* asChild makes the whole item clickable and keyboard-activatable */}
+        <DropdownMenuItem asChild>
+          <Link href='/addHomeToList'>Airbnb your home</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>My Favorites</DropdownMenuItem>
+        <DropdownMenuItem>My Reservations</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

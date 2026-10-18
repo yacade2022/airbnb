@@ -6,27 +6,21 @@ import LinksDropDown from './LinksDropDown'
 
 import { LuGlobe } from "react-icons/lu"
 
-
-//i have to add suspence
-
 function Navbar() {
   return (
-    <div className=' flex items-center justify-between'>
-        <Logo/>
+    <header className='flex items-center justify-between gap-4 border-b'>
+      <Logo />
+      <div className='hidden md:block flex-1 max-w-xs'>
         <NavSearch />
-        <div className='flex items-center gap-x-3'>
-        <AddHome />
-        <LuGlobe />
-        
-        <LinksDropDown />
-        
-       
+      </div>
+      <div className='flex items-center gap-x-3'>
+        <div className='hidden sm:block'>
+          <AddHome />
         </div>
-        
-       
-        
-
-    </div>
+        <LuGlobe aria-hidden />
+        <LinksDropDown />
+      </div>
+    </header>
   )
 }
 

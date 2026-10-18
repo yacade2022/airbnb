@@ -4,7 +4,6 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
 type btnSize = 'default' | 'lg' | 'sm';
 
