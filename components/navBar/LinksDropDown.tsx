@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link'
 
-// Only links to pages that exist; favorites and reservations need accounts, which aren't built yet
+// Favorites and reservations need accounts, which aren't built yet, so they're shown but disabled
 function LinksDropDown() {
   return (
     <DropdownMenu>
@@ -27,6 +27,13 @@ function LinksDropDown() {
         </DropdownMenuItem>
         <DropdownMenuItem asChild className='min-h-11'>
           <Link href='/'>Browse all homes</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem disabled className='min-h-11 justify-between'>
+          My Favorites <span className='text-xs'>Coming soon</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem disabled className='min-h-11 justify-between'>
+          My Reservations <span className='text-xs'>Coming soon</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className='min-h-11'>

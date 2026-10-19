@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import { imageCredits } from '@/lib/imageCredits'
 import PhotoCredit from '@/components/global/PhotoCredit'
 
@@ -22,6 +24,9 @@ function IntroBanner() {
         <p className='mt-2 text-sm text-white/90 sm:mt-3 sm:text-base'>
           Browse homes shared by hosts. Pick a category below or search by location.
         </p>
+        <Button asChild variant='brand' className='mt-5 h-11 px-5'>
+          <Link href='/addHomeToList'>Airbnb your home</Link>
+        </Button>
       </div>
       <PhotoCredit credit={photo} className='absolute bottom-2 right-3 text-white/85 [&_a]:text-white' />
     </section>
