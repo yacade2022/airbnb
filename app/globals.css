@@ -39,6 +39,11 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -46,6 +51,12 @@
 }
 
 :root {
+  /* Coral brand colour. Darker than the old #ff676c so white text on it meets WCAG AA (4.5:1) */
+  --brand: oklch(0.57 0.19 20);
+  --brand-foreground: oklch(1 0 0);
+  --brand-soft: oklch(0.97 0.02 20);
+  --success: oklch(0.45 0.11 155);
+  --success-soft: oklch(0.97 0.03 155);
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -64,7 +75,7 @@
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
+  --ring: oklch(0.57 0.19 20);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -120,25 +131,33 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    /* Stops anchors and focused fields from hiding under the sticky header */
+    scroll-padding-top: 6rem;
+  }
   body {
     @apply bg-background text-foreground;
   }
-}
-/* Hide scrollbar in WebKit browsers (Chrome, Safari) */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  /* Visible keyboard focus for links and other elements without their own focus style */
+  a:focus-visible,
+  summary:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring rounded-sm;
+  }
 }
 
-/* Hide scrollbar in Firefox */
-.scrollbar-hide {
+@utility scrollbar-hide {
   scrollbar-width: none;
-}
-
-/* Hide scrollbar in Internet Explorer & Edge */
-.scrollbar-hide {
   -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-.airbnb-color{
-  background-color: #ff676c;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import ws from 'ws'
 
 let client: SupabaseClient | undefined
 
@@ -11,7 +12,10 @@ export function getSupabase() {
         if (!url || !key) {
             throw new Error('SUPABASE_URL and SUPABASE_ANON_KEY must be set in .env')
         }
-        client = createClient(url, key)
+        // supabase-js builds a realtime client up front, which throws on Node < 22
+        // (no global WebSocket) unless a WebSocket implementation is passed in.
+        // The cast is needed because ws's overloaded constructor types don't match supabase's
+        client = createClient(url, key, { realtime: { transport: ws as unknown as typeof WebSocket } })
     }
     return client
 }

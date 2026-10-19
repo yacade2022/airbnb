@@ -3,16 +3,16 @@
 import db from './db'
 import { getSupabase } from "@/lib/supabase"
 import { categoryHouses } from '@/lib/categoryHouses';
+import { MAX_DESCRIPTION_LENGTH, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 type AddHomeValues = { title: string; location: string; description: string; price: string };
+export type AddHomeField = keyof AddHomeValues | 'image';
 
-// values are sent back so the form can keep what the user typed (React resets it after the action)
-export type AddHomeState = { error?: string; values?: AddHomeValues };
-
-// Keep in sync with experimental.serverActions.bodySizeLimit in next.config.ts
-const MAX_IMAGE_SIZE = 4 * 1024 * 1024;
+// values are sent back so the form can keep what the user typed (React resets it after the action);
+// field names the input the error belongs to, so the form can highlight and focus it
+export type AddHomeState = { error?: string; field?: AddHomeField; values?: AddHomeValues };
 
 export async function addHomeToList(
     _prevState: AddHomeState,
@@ -28,26 +28,33 @@ export async function addHomeToList(
 
     // Validate on the server - client-side `required` attributes can be bypassed
     if (!categoryHouses.some((category) => category.title === title)) {
-        return { error: 'Please choose a valid category.', values };
+        return { error: 'Please choose a valid category.', field: 'title', values };
     }
-    if (!location) return { error: 'Please enter a location.', values };
-    if (!description) return { error: 'Please enter a description.', values };
+    if (!location) return { error: 'Please enter a location.', field: 'location', values };
+    if (location.length > MAX_LOCATION_LENGTH) {
+        return { error: `Location must be ${MAX_LOCATION_LENGTH} characters or fewer.`, field: 'location', values };
+    }
+    if (!description) return { error: 'Please enter a description.', field: 'description', values };
+    if (description.length > MAX_DESCRIPTION_LENGTH) {
+        return { error: `Description must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`, field: 'description', values };
+    }
     if (!Number.isInteger(price) || price <= 0) {
-        return { error: 'Price must be a whole number greater than 0.', values };
+        return { error: 'Price must be a whole number greater than 0.', field: 'price', values };
     }
     // An empty file input still submits a File with size 0
     if (!(imageFile instanceof File) || imageFile.size === 0) {
-        return { error: 'Please choose an image.', values };
+        return { error: 'Please choose an image.', field: 'image', values };
     }
     if (!imageFile.type.startsWith('image/')) {
-        return { error: 'The uploaded file must be an image.', values };
+        return { error: 'The uploaded file must be an image.', field: 'image', values };
     }
     if (imageFile.size > MAX_IMAGE_SIZE) {
-        return { error: 'Image must be 4 MB or smaller.', values };
+        return { error: 'Image must be 4 MB or smaller.', field: 'image', values };
     }
 
     const supabase = getSupabase();
     let uploadedPath: string | undefined;
+    let homeId: string;
 
     try {
         // Sanitize the filename to remove special characters
@@ -71,7 +78,7 @@ export async function addHomeToList(
 
         const imageUrl = supabase.storage.from('image').getPublicUrl(uploadedPath).data.publicUrl;
 
-        await db.home.create({
+        const home = await db.home.create({
             data: {
                 location,
                 title,
@@ -80,6 +87,7 @@ export async function addHomeToList(
                 photo: imageUrl
             }
         });
+        homeId = home.id;
     } catch (error) {
         console.error('Error adding home to list:', error);
         // Don't leave an orphaned image behind if the database write failed
@@ -91,16 +99,31 @@ export async function addHomeToList(
 
     // redirect() throws internally, so it must stay outside the try/catch
     revalidatePath('/');
-    redirect('/');
+    // created=1 lets the listing page show a confirmation that the home was saved
+    redirect(`/homes/${homeId}?created=1`);
 }
 
-export const fetchAllHome = async (category?: string) => {
-    const allHome = await db.home.findMany({
+export const fetchAllHome = async (category?: string, search?: string) => {
+    const query = search?.trim();
+    const where = {
         // Home.title stores the category title chosen in the add-home form
-        where: category ? { title: category } : undefined,
+        ...(category && { title: category }),
+        ...(query && {
+            OR: [
+                { location: { contains: query, mode: 'insensitive' as const } },
+                { description: { contains: query, mode: 'insensitive' as const } },
+            ],
+        }),
+    };
+    const allHome = await db.home.findMany({
+        where: Object.keys(where).length ? where : undefined,
         orderBy: {
             createdAt: 'desc',
         },
     });
     return allHome;
+}
+
+export const fetchHomeById = async (id: string) => {
+    return db.home.findUnique({ where: { id } });
 }

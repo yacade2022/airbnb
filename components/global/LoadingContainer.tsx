@@ -1,25 +1,28 @@
-import { Card, CardContent } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
+import { homesGridClass } from '../home/HomeCard';
 
 function LoadingContainer() {
   return (
-    <div className='pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
-      <LoadingProduct />
-      <LoadingProduct />
-      <LoadingProduct />
+    <div role='status' aria-busy='true' className='pb-16 pt-2'>
+      <span className='sr-only'>Loading homes…</span>
+      <Skeleton className='mb-6 h-6 w-32' />
+      <div className={homesGridClass}>
+        {Array.from({ length: 8 }, (_, index) => (
+          <LoadingProduct key={index} />
+        ))}
+      </div>
     </div>
   );
 }
 
 function LoadingProduct() {
   return (
-    <Card>
-      <CardContent className='p-4'>
-        <Skeleton className='h-48 w-full' />
-        <Skeleton className='h-4 w-3/4 mt-4' />
-        <Skeleton className='h-4 w-1/2 mt-4' />
-      </CardContent>
-    </Card>
+    <div aria-hidden>
+      <Skeleton className='aspect-[4/3] w-full rounded-xl' />
+      <Skeleton className='mt-3 h-4 w-2/3' />
+      <Skeleton className='mt-2 h-4 w-full' />
+      <Skeleton className='mt-2 h-4 w-1/3' />
+    </div>
   );
 }
 export default LoadingContainer;

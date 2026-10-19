@@ -11,20 +11,24 @@ type SubmitButtonProps = {
   className?: string;
   text?: string;
   size?: btnSize;
+  variant?: 'default' | 'brand';
 };
 
 export function SubmitButton({
   className = '',
-  text = 'submit',
+  text = 'Submit',
   size = 'lg',
+  variant = 'default',
 }: SubmitButtonProps) {
   const { pending } = useFormStatus();
   return (
     <Button
       type='submit'
       disabled={pending}
-      className={cn('capitalize', className)}
+      aria-disabled={pending}
+      className={cn(className)}
       size={size}
+      variant={variant}
     >
       {pending ? (
         <>
