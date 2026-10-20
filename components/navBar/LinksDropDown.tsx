@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link'
 
-// Favorites and reservations need accounts, which aren't built yet, so they're shown but disabled
+// Favorites and reservations belong to this browser's guest id (lib/guest.ts) until accounts exist
 function LinksDropDown() {
   return (
     <DropdownMenu>
@@ -29,11 +29,11 @@ function LinksDropDown() {
           <Link href='/'>Browse all homes</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled className='min-h-11 justify-between'>
-          My Favorites <span className='text-xs'>Coming soon</span>
+        <DropdownMenuItem asChild className='min-h-11'>
+          <Link href='/favorites'>My Favorites</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem disabled className='min-h-11 justify-between'>
-          My Reservations <span className='text-xs'>Coming soon</span>
+        <DropdownMenuItem asChild className='min-h-11'>
+          <Link href='/reservations'>My Reservations</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className='min-h-11'>

@@ -11,7 +11,7 @@ type SubmitButtonProps = {
   className?: string;
   text?: string;
   size?: btnSize;
-  variant?: 'default' | 'brand';
+  variant?: 'default' | 'brand' | 'outline';
 };
 
 export function SubmitButton({

@@ -3,16 +3,18 @@ import Link from 'next/link'
 import type { Home } from '@prisma/client'
 import { findCategoryByTitle } from '@/lib/categoryHouses'
 import { formatPrice } from '@/lib/format'
+import FavoriteButton from './FavoriteButton'
 
 // Shared with the loading skeleton so it matches the real grid
 export const homesGridClass = 'grid grid-cols-1 gap-x-6 gap-y-10 min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
 
 type HomeCardProps = {
   home: Home
+  isFavorite: boolean
   priority?: boolean
 }
 
-function HomeCard({ home, priority = false }: HomeCardProps) {
+function HomeCard({ home, isFavorite, priority = false }: HomeCardProps) {
   const Icon = findCategoryByTitle(home.title)?.icon
 
   return (
@@ -31,6 +33,8 @@ function HomeCard({ home, priority = false }: HomeCardProps) {
           {Icon && <Icon className='size-3.5' aria-hidden />}
           {home.title}
         </span>
+        {/* z-10 lifts it above the card's link overlay so it gets its own clicks */}
+        <FavoriteButton homeId={home.id} isFavorite={isFavorite} className='absolute right-2 top-2 z-10' />
       </div>
       <div className='mt-3 space-y-1'>
         <h3 className='font-semibold leading-snug break-words'>

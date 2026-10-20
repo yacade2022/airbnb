@@ -31,6 +31,35 @@ model Home {
   photo       String
   location    String
   
-  createdAt    DateTime   @default(now()) 
+  createdAt    DateTime   @default(now())
 
+  favorites    Favorite[]
+  reservations Reservation[]
+}
+
+// guestId is the anonymous id from the guest cookie (lib/guest.ts) until accounts exist
+model Favorite {
+  id        String   @id @default(uuid())
+  guestId   String
+  homeId    String
+  home      Home     @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([guestId, homeId])
+}
+
+model Reservation {
+  id         String   @id @default(uuid())
+  guestId    String
+  homeId     String
+  home       Home     @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  checkIn    DateTime @db.Date
+  checkOut   DateTime @db.Date
+  guests     Int
+  // Nights x the home's price at booking time, so later price changes don't alter it
+  totalPrice Int
+  createdAt  DateTime @default(now())
+
+  @@index([guestId])
+  @@index([homeId])
 }

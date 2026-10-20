@@ -1,4 +1,4 @@
-import { fetchAllHome } from '@/utils/actions'
+import { fetchAllHome, fetchFavoriteIds } from '@/utils/actions'
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import EmptyState from '@/components/global/EmptyState';
@@ -6,8 +6,9 @@ import HomeCard, { homesGridClass } from './HomeCard';
 
 async function Home({ category, search }: { category?: string; search?: string }) {
   let homes: Awaited<ReturnType<typeof fetchAllHome>>;
+  let favoriteIds: Set<string>;
   try {
-    homes = await fetchAllHome(category, search);
+    [homes, favoriteIds] = await Promise.all([fetchAllHome(category, search), fetchFavoriteIds()]);
   } catch (error) {
     // Handled here so a database failure doesn't take down the whole page
     console.error('Error fetching homes:', error);
@@ -70,7 +71,7 @@ async function Home({ category, search }: { category?: string; search?: string }
       <div className={homesGridClass}>
         {homes.map((home, index) => (
           // Only the first row is above the fold
-          <HomeCard key={home.id} home={home} priority={index < 4} />
+          <HomeCard key={home.id} home={home} isFavorite={favoriteIds.has(home.id)} priority={index < 4} />
         ))}
       </div>
     </section>

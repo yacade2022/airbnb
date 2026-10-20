@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { ArrowLeft, CalendarDays, CircleCheck, MapPin } from 'lucide-react';
-import { fetchHomeById } from '@/utils/actions';
+import { fetchBookedDates, fetchFavoriteIds, fetchHomeById } from '@/utils/actions';
 import { findCategoryByTitle } from '@/lib/categoryHouses';
-import { formatListedDate, formatPrice } from '@/lib/format';
+import { formatListedDate, formatPrice, formatStayDates } from '@/lib/format';
+import FavoriteButton from '@/components/home/FavoriteButton';
+import ReservationForm from '@/components/form/ReservationForm';
 
 type HomePageProps = {
   params: Promise<{ id: string }>;
@@ -25,6 +27,7 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
   const [{ id }, { created }] = await Promise.all([params, searchParams]);
   const home = await getHome(id);
   if (!home) notFound();
+  const [favoriteIds, bookedDates] = await Promise.all([fetchFavoriteIds(), fetchBookedDates(home.id)]);
 
   const category = findCategoryByTitle(home.title);
   const CategoryIcon = category?.icon;
@@ -53,7 +56,10 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
       )}
 
       <header className="mt-4">
-        <h1 className="text-2xl font-semibold tracking-tight break-words sm:text-3xl">{home.location}</h1>
+        <div className="flex items-start justify-between gap-4">
+          <h1 className="text-2xl font-semibold tracking-tight break-words sm:text-3xl">{home.location}</h1>
+          <FavoriteButton homeId={home.id} isFavorite={favoriteIds.has(home.id)} className="shrink-0" />
+        </div>
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
           {category ? (
             <Link
@@ -96,7 +102,7 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
           </a>
         </div>
 
-        <aside aria-label="Price and details" className="lg:sticky lg:top-28 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
+        <aside aria-label="Price and booking" className="lg:sticky lg:top-28 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
           <div className="rounded-2xl border p-6 shadow-sm">
             <p>
               <span className="text-2xl font-semibold">{formatPrice(home.price)}</span>{' '}
@@ -114,9 +120,22 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
                 <dd>{home.title}</dd>
               </div>
             </dl>
-            <p className="mt-5 rounded-lg bg-muted p-3 text-sm text-muted-foreground">
-              Online booking isn&apos;t available yet.
-            </p>
+            <div className="mt-5 border-t pt-5">
+              <h2 className="mb-4 font-semibold">Reserve</h2>
+              <ReservationForm homeId={home.id} price={home.price} />
+            </div>
+            {bookedDates.length > 0 && (
+              <div className="mt-5 border-t pt-5 text-sm">
+                <h3 className="font-medium">Already booked</h3>
+                <ul className="mt-2 space-y-1 text-muted-foreground">
+                  {bookedDates.map((stay) => (
+                    <li key={`${stay.checkIn.toISOString()}-${stay.checkOut.toISOString()}`}>
+                      {formatStayDates(stay.checkIn, stay.checkOut)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </aside>
 
