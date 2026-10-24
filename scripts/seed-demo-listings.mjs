@@ -5,7 +5,8 @@
 //   npm run seed-demo -- someone@example.com   add them, owned by that account
 //   npm run seed-demo -- --remove              delete every demo listing, with its favorites and reservations
 //
-// Safe to run again: photos that a listing already uses are skipped, so nothing is duplicated.
+// Safe to run again: listings whose photo is already used aren't added again, but their location,
+// description and price are brought up to date with demoListings.json.
 import { readFile } from 'node:fs/promises';
 import { PrismaClient } from '@prisma/client';
 
@@ -32,16 +33,26 @@ try {
       const listings = JSON.parse(await readFile(new URL('../lib/demoListings.json', import.meta.url), 'utf8'));
       const existing = await db.home.findMany({
         where: { photo: { startsWith: DEMO_PHOTO_PREFIX } },
-        select: { photo: true },
+        select: { id: true, photo: true, location: true, description: true, price: true },
       });
-      const used = new Set(existing.map((home) => home.photo));
+      const byPhoto = new Map(existing.map((home) => [home.photo, home]));
       const data = listings
-        .filter((listing) => !used.has(listing.photo.src))
+        .filter((listing) => !byPhoto.has(listing.photo.src))
         .map(({ title, location, description, price, photo }) => ({
           title, location, description, price, photo: photo.src, ownerId: owner.id,
         }));
       const { count } = await db.home.createMany({ data });
-      console.log(`Added ${count} demo listing(s) owned by ${owner.email}; ${used.size} already existed.`);
+
+      // A photo file can be swapped for another image, so keep its listing's text in step with it
+      let updated = 0;
+      for (const { location, description, price, photo } of listings) {
+        const home = byPhoto.get(photo.src);
+        if (home && (home.location !== location || home.description !== description || home.price !== price)) {
+          await db.home.update({ where: { id: home.id }, data: { location, description, price } });
+          updated++;
+        }
+      }
+      console.log(`Added ${count} demo listing(s) owned by ${owner.email}; updated ${updated} existing one(s).`);
     }
   }
 } finally {

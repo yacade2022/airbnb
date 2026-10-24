@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { DEMO_PHOTO_PREFIX, demoListings, findDemoPhotoCredit } from './demoListings';
+import { CREDITS_PAGE_LICENSES, imageCredits } from './imageCredits';
 import { categoryHouses } from './categoryHouses';
 import { MAX_DESCRIPTION_LENGTH, MAX_LOCATION_LENGTH } from './listingRules';
 
@@ -42,6 +43,24 @@ describe('demo listings', () => {
       expect(photo.license).toMatch(/^(CC0|Public domain|CC BY(-SA)? \d\.\d)$/);
       expect(photo.sourceUrl).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
       expect(photo.licenseUrl).toMatch(/^https?:\/\//);
+    }
+  });
+});
+
+describe('photo licenses', () => {
+  // Photos are credited only on /credits, so each license must allow that (or need no credit)
+  const allPhotos = [...demoListings.map(({ photo }) => photo), ...Object.values(imageCredits)];
+
+  it.each(allPhotos.map((photo) => [photo.src, photo.license]))('%s (%s) can be credited on /credits only', (_src, license) => {
+    expect(license).toMatch(CREDITS_PAGE_LICENSES);
+  });
+
+  it('accepts CC 4.0, CC0 and public domain, and rejects older CC versions', () => {
+    for (const license of ['CC BY 4.0', 'CC BY-SA 4.0', 'CC0', 'Public domain']) {
+      expect(license).toMatch(CREDITS_PAGE_LICENSES);
+    }
+    for (const license of ['CC BY 2.0', 'CC BY-SA 2.5', 'CC BY 3.0', 'CC BY-SA 3.0']) {
+      expect(license).not.toMatch(CREDITS_PAGE_LICENSES);
     }
   });
 });

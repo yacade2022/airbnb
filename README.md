@@ -37,10 +37,12 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 48 demo listings, 4 per category, use the openly licensed photos in `public/images/categories`
 (sources and licenses in `ATTRIBUTION.md` there). They're owned by the admin account and show a
-"Demo listing" note and the photo's credit.
+"Demo listing" note. Photos have no credit captions; every photo is credited on the Image credits
+page (`/credits`), linked from the footer. Only CC BY 4.0, CC BY-SA 4.0, CC0 and public-domain
+photos may be used, since those licenses allow that (the tests check this).
 
 ```bash
-npm run seed-demo                          # add them (skips any that already exist)
+npm run seed-demo                          # add them, and update text of existing ones
 npm run seed-demo -- someone@example.com   # add them owned by a specific account
 npm run seed-demo -- --remove              # delete them, with their favorites and reservations
 ```

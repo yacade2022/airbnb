@@ -10,7 +10,6 @@ import { formatListedDate, formatPrice, formatStayDates } from '@/lib/format';
 import FavoriteButton from '@/components/home/FavoriteButton';
 import ReservationForm from '@/components/form/ReservationForm';
 import ListingActions from '@/components/home/ListingActions';
-import PhotoCredit from '@/components/global/PhotoCredit';
 import { findDemoPhotoCredit } from '@/lib/demoListings';
 import { canManageHome, getCurrentUser } from '@/lib/auth';
 
@@ -125,17 +124,14 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
               className="object-cover"
             />
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-x-4">
-            <a
-              href={home.photo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block py-3 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
-            >
-              View full-size photo
-            </a>
-            {photoCredit && <PhotoCredit credit={photoCredit} className="text-muted-foreground" />}
-          </div>
+          <a
+            href={home.photo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block py-3 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
+            View full-size photo
+          </a>
         </div>
 
         <aside aria-label="Price and booking" className="lg:sticky lg:top-28 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">

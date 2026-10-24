@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { imageCredits } from '@/lib/imageCredits'
-import PhotoCredit from './PhotoCredit'
 
 type EmptyStateProps = {
   // h1 when the empty state is the whole page (e.g. 404), h2 when it sits inside one
@@ -11,7 +10,7 @@ type EmptyStateProps = {
 }
 
 function EmptyState({ as: Heading = 'h2', title, description, children }: EmptyStateProps) {
-  const photo = imageCredits.cabinLivingRoom
+  const photo = imageCredits.snowyHut
 
   return (
     <section className='mx-auto flex max-w-md flex-col items-center py-12 text-center sm:py-16'>
@@ -20,9 +19,6 @@ function EmptyState({ as: Heading = 'h2', title, description, children }: EmptyS
           {/* Purely decorative here, the heading carries the meaning */}
           <Image src={photo.src} alt='' fill sizes='320px' className='object-cover' />
         </div>
-        <figcaption>
-          <PhotoCredit credit={photo} className='mt-1.5 text-muted-foreground' />
-        </figcaption>
       </figure>
       <Heading className='mt-6 text-xl font-semibold'>{title}</Heading>
       <p className='mt-2 text-sm text-muted-foreground'>{description}</p>

@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { imageCredits } from '@/lib/imageCredits'
-import PhotoCredit from '@/components/global/PhotoCredit'
 
 function IntroBanner() {
   const photo = imageCredits.cabinExterior
@@ -28,7 +27,6 @@ function IntroBanner() {
           <Link href='/addHomeToList'>Airbnb your home</Link>
         </Button>
       </div>
-      <PhotoCredit credit={photo} className='absolute bottom-2 right-3 text-white/85 [&_a]:text-white' />
     </section>
   )
 }

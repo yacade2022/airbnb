@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import AddHomeForm from '@/components/form/AddHomeForm';
-import PhotoCredit from '@/components/global/PhotoCredit';
 import { imageCredits } from '@/lib/imageCredits';
 import { requireUser } from '@/lib/auth';
 
@@ -10,7 +9,7 @@ export const metadata: Metadata = { title: 'Airbnb your home' };
 async function AddHome() {
   // Logged-out visitors are sent to log in, then brought back here
   await requireUser('/addHomeToList');
-  const photo = imageCredits.lakeLivingRoom;
+  const photo = imageCredits.livingRoom;
 
   return (
     <section className="py-8 pb-16">
@@ -30,9 +29,6 @@ async function AddHome() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
               <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1280px) 416px, 352px" className="object-cover" />
             </div>
-            <figcaption>
-              <PhotoCredit credit={photo} className="mt-1.5 text-muted-foreground" />
-            </figcaption>
           </figure>
           <h2 className="mt-6 font-semibold">Tips for a clear listing</h2>
           <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">

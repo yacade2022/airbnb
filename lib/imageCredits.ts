@@ -1,7 +1,11 @@
 // Decorative photos bundled in public/images/demo. They are illustrative only and are
-// not photos of any listed property. CC BY 2.0 requires visible attribution, so every
-// place that shows one of these renders its credit (see components/global/PhotoCredit.tsx),
-// and the full record is listed on /credits. Keep public/images/demo/ATTRIBUTION.md in sync.
+// not photos of any listed property. Photos are credited only on /credits, which every page
+// links to from the footer, never next to the photo. Keep public/images/demo/ATTRIBUTION.md in sync.
+
+// Licenses that allow that. CC 4.0 lets credit be given through a link to a page that contains it
+// (section 3(a)(2)); CC0 and public domain need no credit. Older CC versions (2.0 to 3.0) have no
+// such clause, so photos under them must be replaced rather than credited away from the image
+export const CREDITS_PAGE_LICENSES = /^(CC BY(-SA)? 4\.0|CC0|Public domain)$/;
 
 export type ImageCredit = {
   src: string;
@@ -15,40 +19,37 @@ export type ImageCredit = {
   height: number;
 };
 
-const SHIXART = 'Shixart1985';
-const CC_BY_2 = { license: 'CC BY 2.0', licenseUrl: 'https://creativecommons.org/licenses/by/2.0/' };
+const CC0 = { license: 'CC0', licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/' };
 
 export const imageCredits = {
   cabinExterior: {
     src: '/images/demo/cabin-exterior.jpg',
-    alt: 'A small log cabin with a covered porch, surrounded by tall grass under a blue sky',
-    title: 'A wooden cabin sits peacefully amidst tall grass and trees under a bright blue sky',
-    creator: SHIXART,
-    sourceUrl:
-      'https://commons.wikimedia.org/wiki/File:A_wooden_cabin_sits_peacefully_amidst_tall_grass_and_trees_under_a_bright_blue_sky.jpg',
-    ...CC_BY_2,
+    alt: 'A small log cabin with blue shutters on a lawn among autumn trees',
+    title: 'Bellevue, Nebraska log cabin from SW 1',
+    creator: 'Ammodramus',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Bellevue,_Nebraska_log_cabin_from_SW_1.JPG',
+    ...CC0,
+    width: 1920,
+    height: 1240,
+  },
+  snowyHut: {
+    src: '/images/demo/snowy-hut.jpg',
+    alt: 'A small wooden hut under deep snow below a forested mountainside, with clouds and sun rays',
+    title: 'Greetings from the sun. - Flickr - simon berger',
+    creator: 'simon from Austria',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Greetings_from_the_sun._-_Flickr_-_simon_berger.jpg',
+    ...CC0,
+    width: 1920,
+    height: 1437,
+  },
+  livingRoom: {
+    src: '/images/demo/living-room.jpg',
+    alt: 'A bright living room with a blue sofa, house plants and a wide window',
+    title: 'Living room (Unsplash)',
+    creator: 'Jarosław Ceborski',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Living_room_(Unsplash).jpg',
+    ...CC0,
     width: 1920,
     height: 1281,
-  },
-  cabinLivingRoom: {
-    src: '/images/demo/cabin-living-room.jpg',
-    alt: 'A wood-panelled cabin living room with a blue sofa and a small coffee table',
-    title: 'Cozy cabin living room with wooden interior',
-    creator: SHIXART,
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cozy_cabin_living_room_with_wooden_interior.jpg',
-    ...CC_BY_2,
-    width: 1920,
-    height: 1282,
-  },
-  lakeLivingRoom: {
-    src: '/images/demo/lake-living-room.jpg',
-    alt: 'A bright living room with floor-to-ceiling windows looking out onto a lake',
-    title: 'Cozy living room with a view of the lake and trees in the background at midday',
-    creator: SHIXART,
-    sourceUrl:
-      'https://commons.wikimedia.org/wiki/File:Cozy_living_room_with_a_view_of_the_lake_and_trees_in_the_background_at_midday.jpg',
-    ...CC_BY_2,
-    width: 1920,
-    height: 1282,
   },
 } satisfies Record<string, ImageCredit>;

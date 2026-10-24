@@ -16,17 +16,17 @@
   },
   {
     "title": "Lake",
-    "location": "Orillia, Ontario, Canada",
-    "description": "A shingled lakeside cottage near Lake Couchiching, with deep verandas, a wide lawn and shady trees. The pictured house is the Stephen Leacock museum; this stay is nearby.",
-    "price": 210,
+    "location": "Lake Stevens, Washington, USA",
+    "description": "Lakefront house on the north shore of Lake Stevens, with a private dock and swimming off the lawn.",
+    "price": 230,
     "photo": {
       "src": "/images/categories/lake/02.png",
-      "alt": "A white lakeside house with a shingled roof, arched veranda and green lawn among tall trees",
-      "title": "Stephen Leacock House Orillia",
-      "creator": "Jcart1534",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stephen_Leacock_House_Orillia.jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "Houses among tall evergreens along the shore of a calm lake",
+      "title": "Lake Stevens lakefront houses",
+      "creator": "ECTran71",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake_Stevens_lakefront_houses.JPG",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -61,32 +61,32 @@
   },
   {
     "title": "Mountain",
-    "location": "Schwarzenberg, Vorarlberg, Austria",
-    "description": "Traditional alpine farmhouse on a snowy slope at 1,200 m, with forest trails and sledding right outside.",
-    "price": 175,
+    "location": "Mittelberg, Kleinwalsertal, Austria",
+    "description": "Snowed-in hut at the head of a quiet alpine valley. Cross-country ski trails start at the door.",
+    "price": 140,
     "photo": {
       "src": "/images/categories/mountain/01.png",
-      "alt": "A large wooden alpine chalet on a sunny snow-covered slope with a bare tree in the foreground",
-      "title": "Hochälpelealpe 1 Panorama",
-      "creator": "böhringer friedrich",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hoch%C3%A4lpelealpe_1_Panorama.jpg",
-      "license": "CC BY-SA 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+      "alt": "A small wooden hut in a snowy valley below forested mountains, with sunlight streaming over a ridge",
+      "title": "Mittelberg Landscape (Unsplash)",
+      "creator": "Mike Kotsch mike",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mittelberg_Landscape_(Unsplash).jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
     "title": "Mountain",
-    "location": "Saint-Gervais, Haute-Savoie, France",
-    "description": "Hamlet chalet at the head of a green valley beneath the glaciers of the Dômes de Miage. Trailheads for the Mont Blanc massif nearby.",
-    "price": 160,
+    "location": "West Glacier, Montana, USA",
+    "description": "Log cabin in a golden meadow below the peaks of Glacier National Park. Big skies, wildlife and hiking nearby.",
+    "price": 190,
     "photo": {
       "src": "/images/categories/mountain/02.png",
-      "alt": "A green alpine valley with a cluster of chalets and a gravel path leading toward glaciated peaks",
-      "title": "Chalets et domes de Miage",
-      "creator": "Trace",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chalets_et_domes_de_Miage.jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A log cabin with an orange roof in a golden meadow, with autumn trees and snowy peaks behind",
+      "title": "Quiet cabin in the mountains (Unsplash)",
+      "creator": "Ravi Pinisetti ravipinisetti",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Quiet_cabin_in_the_mountains_(Unsplash).jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -106,32 +106,32 @@
   },
   {
     "title": "Mountain",
-    "location": "Fraxern, Vorarlberg, Austria",
-    "description": "Village home among blossoming cherry orchards, looking over the Rhine valley to the snowy Swiss Alps.",
-    "price": 130,
+    "location": "Krasnaya Polyana, Sochi, Russia",
+    "description": "Log chalet in the mountain village below Psekhako Ridge, deep in snow all winter.",
+    "price": 170,
     "photo": {
       "src": "/images/categories/mountain/04.png",
-      "alt": "A village of red-roofed houses among blossoming cherry trees, with snowy mountains across a wide valley",
-      "title": "FraxernVlbg1",
-      "creator": "böhringer friedrich",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:FraxernVlbg1.JPG",
-      "license": "CC BY-SA 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+      "alt": "A log chalet with a thick layer of snow on its roof",
+      "title": "Mountain Ridge in the Olympic village Psekhako 1",
+      "creator": "Александр Вайнер",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mountain_Ridge_in_the_Olympic_village_Psekhako_1.JPG",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
     "title": "Urban",
-    "location": "Dubrovnik, Croatia",
-    "description": "Apartment under the terracotta rooftops of the old town, a few minutes from the city walls and the sea.",
-    "price": 150,
+    "location": "Ho Chi Minh City, Vietnam",
+    "description": "Rooftop apartment with sunset views over the city and the spire of Huyen Sy Church.",
+    "price": 70,
     "photo": {
       "src": "/images/categories/urban/01.png",
-      "alt": "Terracotta rooftops of an old walled city climbing toward a rocky hillside",
-      "title": "Dubrovnik - roofs",
-      "creator": "Pudelek (Marcin Szala)",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dubrovnik_-_roofs.JPG",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "City rooftops and a church spire in warm sunset haze",
+      "title": "Rooftops by Igor Ovsyannykov",
+      "creator": "Igor Ovsyannykov",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rooftops_by_Igor_Ovsyannykov.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -226,47 +226,47 @@
   },
   {
     "title": "Beach",
-    "location": "Tiburon, California, USA",
-    "description": "Victorian-style home on the hillside above the shore of Richardson Bay. The pictured house is the historic Lyford House; this stay is nearby.",
-    "price": 260,
+    "location": "Grundsund, Lysekil, Sweden",
+    "description": "White wooden house on a small sandy cove in the Bohuslän archipelago.",
+    "price": 240,
     "photo": {
       "src": "/images/categories/beach/04.png",
-      "alt": "A yellow Victorian house with a tower on a grassy hillside under a deep blue sky",
-      "title": "Lyford House as seen from the beach",
-      "creator": "Frank Schulenburg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lyford_House_as_seen_from_the_beach.jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A white wooden house with a red tile roof beside a small beach and calm water",
+      "title": "White house with a small beach in Norra Grundsund 1",
+      "creator": "W.carter",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_house_with_a_small_beach_in_Norra_Grundsund_1.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
     "title": "Vineyard",
-    "location": "Markgräflerland, Baden, Germany",
-    "description": "Winegrower’s guest flat surrounded by terraced vineyards that turn gold in autumn. Tastings in the village.",
-    "price": 120,
+    "location": "South Styria, Austria",
+    "description": "Guesthouse on the rolling vineyard hills of the South Styrian wine road.",
+    "price": 125,
     "photo": {
       "src": "/images/categories/vineyard/01.png",
-      "alt": "Aerial view of curving rows of vineyards in green and yellow with a small hut",
-      "title": "Aerial View - Landschaft Markgräflerland1",
-      "creator": "Taxiarchos228",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aerial_View_-_Landschaft_Markgr%C3%A4flerland1.jpg",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+      "alt": "Rolling hills of vineyard rows with red-roofed farmhouses",
+      "title": "Ausblick auf die Südsteiermark",
+      "creator": "A,Ocram",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ausblick_auf_die_S%C3%BCdsteiermark.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
     "title": "Vineyard",
-    "location": "Vieussan, Hérault, France",
-    "description": "Stone house above the Orb gorge, with vineyards on the valley floor and hiking in the Haut-Languedoc park.",
-    "price": 115,
+    "location": "Slovenia",
+    "description": "Small cottage among the vines, looking over green hills toward the mountains at sunset.",
+    "price": 95,
     "photo": {
       "src": "/images/categories/vineyard/02.png",
-      "alt": "A green river gorge with vineyards on the valley floor and wooded mountains behind",
-      "title": "Orb River, Vieussan, Hérault 03",
-      "creator": "Christian Ferrer",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Orb_River,_Vieussan,_H%C3%A9rault_03.jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A small white cottage with a red roof beside rows of vines in evening light",
+      "title": "Vineyard in Slovenia 2008",
+      "creator": "IgorMar",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vineyard_in_Slovenia_2008.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -331,32 +331,32 @@
   },
   {
     "title": "Desert",
-    "location": "Monument Valley, Utah, USA",
-    "description": "Hogan-style stay facing the red buttes of Monument Valley. Stargazing and sunrise tours.",
+    "location": "Monument Valley, Arizona, USA",
+    "description": "Hogan-style stay facing the Mittens buttes of Monument Valley. Stargazing and sunrise tours.",
     "price": 175,
     "photo": {
       "src": "/images/categories/desert/03.png",
-      "alt": "A tall red sandstone butte rising above a desert plain with scattered shrubs",
-      "title": "West Mitten Butte - Monument Valley Luca Galuzzi 2007",
-      "creator": "Luca Galuzzi (Lucag)",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_Mitten_Butte_-_Monument_Valley_Luca_Galuzzi_2007.jpg",
-      "license": "CC BY-SA 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5"
+      "alt": "Three red sandstone buttes rising above red desert sand under a blue sky",
+      "title": "Monument Valley Arizona",
+      "creator": "Filio",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Monument_Valley_Arizona.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
     "title": "Desert",
-    "location": "Monument Valley, Arizona, USA",
-    "description": "Cabin on the open red sand plains, beneath long sandstone mesas dusted with snow in winter.",
+    "location": "Oljato-Monument Valley, Utah, USA",
+    "description": "Cabin on the open plains beneath glowing sandstone buttes, dusted with snow in winter.",
     "price": 160,
     "photo": {
       "src": "/images/categories/desert/04.png",
-      "alt": "Red desert sand and dry grass below a long sandstone mesa dusted with snow",
-      "title": "Monument Valley Morning Snow MC",
-      "creator": "Christian Mehlführer, User:Chmehl",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Monument_Valley_Morning_Snow_MC.jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A tall sandstone butte glowing orange in low sun, with snow at its base",
+      "title": "Oljato-Monument Valley, United States (Unsplash R9S19dOFlcs)",
+      "creator": "Dawn Armfield darmfield",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oljato-Monument_Valley,_United_States_(Unsplash_R9S19dOFlcs).jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -451,17 +451,17 @@
   },
   {
     "title": "Historic",
-    "location": "Nagoya, Aichi, Japan",
-    "description": "Machiya-style home near the gardens of Nagoya Castle. The pictured castle is not the rental.",
-    "price": 140,
+    "location": "Robertsbridge, East Sussex, England",
+    "description": "Cottage a short walk from moated 14th-century Bodiam Castle. The pictured castle is not the rental.",
+    "price": 145,
     "photo": {
       "src": "/images/categories/historic/03.png",
-      "alt": "A tiered Japanese castle keep with green roofs on high stone walls",
-      "title": "Nagoya Castle(Larger)",
-      "creator": "Base64",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nagoya_Castle(Larger).jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A medieval stone castle with round towers surrounded by a moat",
+      "title": "Bodiam Castle, south east corner",
+      "creator": "Poliphilo",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bodiam_Castle,_south_east_corner.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -571,17 +571,17 @@
   },
   {
     "title": "Farmhouse",
-    "location": "Creeds, Virginia, USA",
-    "description": "Porch-wrapped country farmhouse among open fields, glowing at golden hour.",
-    "price": 95,
+    "location": "Reedy Creek, South Australia",
+    "description": "Simple stone farm cottage in open grain fields, with huge skies and long sunsets.",
+    "price": 85,
     "photo": {
       "src": "/images/categories/farmhouse/03.png",
-      "alt": "A two-storey farmhouse with a wide porch lit by low golden evening sun",
-      "title": "Farmhouse at Kelvin A. Lewis farm in Creeds 7",
-      "creator": "PumpkinSky",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Farmhouse_at_Kelvin_A._Lewis_farm_in_Creeds_7.jpg",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A small stone farmhouse with a rusty tin roof in a field of tall grass",
+      "title": "Disused historic farmhouse in rural South Australia",
+      "creator": "Hallo3800",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Disused_historic_farmhouse_in_rural_South_Australia.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -616,17 +616,17 @@
   },
   {
     "title": "Ski",
-    "location": "Jasná, Low Tatras, Slovakia",
-    "description": "Chalet room among snow-laden spruce forest, close to the Jasná lifts.",
-    "price": 120,
+    "location": "Peisey-Vallandry, Savoie, France",
+    "description": "Ski-in studio beside the Derby chairlift, on the larch-lined slopes of Paradiski.",
+    "price": 190,
     "photo": {
       "src": "/images/categories/ski/02.png",
-      "alt": "A snow-covered spruce forest and mountain ridge under heavy winter clouds",
-      "title": "Jasná Ski Resort - trees",
-      "creator": "Pudelek (Marcin Szala)",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jasn%C3%A1_Ski_Resort_-_trees.JPG",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "A chairlift running above a snowy piste lined with larch trees",
+      "title": "Ski lift Derby crosses Bosses slope, Peisey-Vallandry, 2020",
+      "creator": "DimiTalen",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ski_lift_Derby_crosses_Bosses_slope,_Peisey-Vallandry,_2020.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {
@@ -646,17 +646,17 @@
   },
   {
     "title": "Ski",
-    "location": "Jasná, Low Tatras, Slovakia",
-    "description": "Mountain lodge room beside the piste at Kosodrevina, under the summit of Ďumbier.",
-    "price": 140,
+    "location": "Megève, Haute-Savoie, France",
+    "description": "Chalet apartment above Megève, with the Mandarines piste at the door and views to the Aravis peaks.",
+    "price": 260,
     "photo": {
       "src": "/images/categories/ski/04.png",
-      "alt": "A skier on a groomed piste beside a mountain lodge, below a snowy summit",
-      "title": "Jasná Ski Resort - Kosodrevina and Ďumbier",
-      "creator": "Pudelek (Marcin Szala)",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jasn%C3%A1_Ski_Resort_-_Kosodrevina_and_%C4%8Eumbier.JPG",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+      "alt": "Skiers on a groomed piste above a valley town with snowy peaks behind",
+      "title": "Looking down the Mandarines slope, Megève, 2025",
+      "creator": "DimiTalen",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Looking_down_the_Mandarines_slope,_Meg%C3%A8ve,_2025.jpg",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
     }
   },
   {

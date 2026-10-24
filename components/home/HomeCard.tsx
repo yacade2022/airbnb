@@ -4,7 +4,6 @@ import type { Home } from '@prisma/client'
 import { findCategoryByTitle } from '@/lib/categoryHouses'
 import { findDemoPhotoCredit } from '@/lib/demoListings'
 import { formatPrice } from '@/lib/format'
-import PhotoCredit from '@/components/global/PhotoCredit'
 import FavoriteButton from './FavoriteButton'
 
 // Shared with the loading skeleton so it matches the real grid
@@ -50,8 +49,6 @@ function HomeCard({ home, isFavorite, priority = false }: HomeCardProps) {
         <p className='pt-1 text-sm'>
           <span className='font-semibold'>{formatPrice(home.price)}</span> <span className='text-muted-foreground'>night</span>
         </p>
-        {/* relative z-10 keeps the credit links clickable above the card's link overlay */}
-        {credit && <PhotoCredit credit={credit} className='relative z-10 w-fit pt-1 text-muted-foreground' />}
       </div>
     </article>
   )
