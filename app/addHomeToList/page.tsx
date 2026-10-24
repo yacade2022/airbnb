@@ -3,10 +3,13 @@ import Image from 'next/image';
 import AddHomeForm from '@/components/form/AddHomeForm';
 import PhotoCredit from '@/components/global/PhotoCredit';
 import { imageCredits } from '@/lib/imageCredits';
+import { requireUser } from '@/lib/auth';
 
 export const metadata: Metadata = { title: 'Airbnb your home' };
 
-function AddHome() {
+async function AddHome() {
+  // Logged-out visitors are sent to log in, then brought back here
+  await requireUser('/addHomeToList');
   const photo = imageCredits.lakeLivingRoom;
 
   return (

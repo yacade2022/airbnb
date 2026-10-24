@@ -1,28 +1,63 @@
 'use client';
 
-import { useActionState, useEffect, useRef, useState } from 'react';
+import { useActionState, useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from 'react';
 import { CircleAlert } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { Calendar } from '@/components/ui/calendar';
 import { SubmitButton } from '@/components/form/Button';
 import { createReservation, type ReservationField, type ReservationState } from '@/utils/actions';
-import { MAX_GUESTS, MAX_NIGHTS, addDays, localToday, nightsBetween, parseDateInput } from '@/lib/reservationRules';
-import { formatPrice } from '@/lib/format';
+import {
+  MAX_GUESTS,
+  MAX_NIGHTS,
+  type BookedStay,
+  fromDateInput,
+  isNightBooked,
+  latestCheckOut,
+  localToday,
+  nightsBetween,
+  overlapsBookedStay,
+  parseDateInput,
+  toDateInput,
+} from '@/lib/reservationRules';
+import { formatPrice, formatStayDate } from '@/lib/format';
+import { cn } from '@/lib/utils';
 
 const initialState: ReservationState = {};
+
+// How far ahead the calendar lets visitors browse
+const BOOKING_WINDOW_MONTHS = 12;
+
+// Two months side by side only where the booking card is wide: tablets, before it moves into the sidebar
+const TWO_MONTHS_QUERY = '(min-width: 640px) and (max-width: 1023px)';
+
+function useMediaQuery(query: string) {
+  return useSyncExternalStore(
+    (onChange) => {
+      const media = window.matchMedia(query);
+      media.addEventListener('change', onChange);
+      return () => media.removeEventListener('change', onChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => false
+  );
+}
 
 type ReservationFormProps = {
   homeId: string;
   price: number;
+  bookedStays: BookedStay[];
 };
 
-function ReservationForm({ homeId, price }: ReservationFormProps) {
+function ReservationForm({ homeId, price, bookedStays }: ReservationFormProps) {
   const [state, formAction] = useActionState(createReservation, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
+  const calendarRef = useRef<HTMLDivElement>(null);
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
+  const [clientError, setClientError] = useState<{ error: string; field: ReservationField }>();
   // Empty until mounted: the server doesn't know the visitor's time zone
   const [today, setToday] = useState<string>();
+  const twoMonths = useMediaQuery(TWO_MONTHS_QUERY);
 
   useEffect(() => setToday(localToday()), []);
 
@@ -30,61 +65,156 @@ function ReservationForm({ homeId, price }: ReservationFormProps) {
   useEffect(() => {
     setCheckIn(state.values?.checkIn ?? '');
     setCheckOut(state.values?.checkOut ?? '');
-    if (state.field) {
-      const field = formRef.current?.elements.namedItem(state.field);
-      if (field instanceof HTMLElement) field.focus();
-    }
+    setClientError(undefined);
+    focusField(state.field);
   }, [state]);
+
+  function focusField(field?: ReservationField) {
+    if (field === 'checkIn' || field === 'checkOut') calendarRef.current?.focus();
+    else if (field) document.getElementById(field)?.focus();
+  }
 
   const inDate = parseDateInput(checkIn);
   const outDate = parseDateInput(checkOut);
   const nights = inDate && outDate ? nightsBetween(inDate, outDate) : 0;
-  // Check-out must be at least the night after check-in
-  const minCheckOut = inDate ? addDays(inDate, 1).toISOString().slice(0, 10) : today;
+  // While picking a check-out, nothing past the next booked night (or the stay limit) can be chosen
+  const choosingCheckOut = Boolean(checkIn && !checkOut);
+  const maxCheckOut = choosingCheckOut ? latestCheckOut(checkIn, bookedStays) : undefined;
 
-  const fieldError = (field: ReservationField) => (state.field === field ? state.error : undefined);
+  const isDayDisabled = (date: Date) => {
+    const day = toDateInput(date);
+    if (!today || day < today) return true;
+    if (maxCheckOut && day > checkIn) return day > maxCheckOut;
+    return isNightBooked(day, bookedStays);
+  };
+
+  // First click picks check-in, second picks check-out. Clicking a day on or before check-in,
+  // or any day once both are set, starts a new range from that day
+  const handleDayClick = (date: Date) => {
+    const day = toDateInput(date);
+    setClientError(undefined);
+    if (choosingCheckOut && day > checkIn) {
+      setCheckOut(day);
+    } else {
+      setCheckIn(day);
+      setCheckOut('');
+    }
+  };
+
+  const clearDates = () => {
+    setCheckIn('');
+    setCheckOut('');
+    setClientError(undefined);
+  };
+
+  // Catches an incomplete range before it reaches the server, which still validates everything
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    let error: typeof clientError;
+    if (!checkIn) error = { error: 'Please choose a check-in date.', field: 'checkIn' };
+    else if (!checkOut) error = { error: 'Please choose a check-out date.', field: 'checkOut' };
+    else if (overlapsBookedStay(checkIn, checkOut, bookedStays)) {
+      error = { error: 'Those dates are already booked. Please choose different dates.', field: 'checkIn' };
+    }
+    if (error) {
+      event.preventDefault();
+      setClientError(error);
+      focusField(error.field);
+    }
+  };
+
+  const shown = clientError ?? (state.error ? { error: state.error, field: state.field } : undefined);
   const invalidProps = (field: ReservationField) =>
-    fieldError(field) ? { 'aria-invalid': true, 'aria-describedby': 'reservation-error' } : {};
+    shown?.field === field ? { 'aria-invalid': true, 'aria-describedby': 'reservation-error' } : {};
+  const datesInvalid = shown?.field === 'checkIn' || shown?.field === 'checkOut';
+
+  const startMonth = today ? fromDateInput(today) : undefined;
+  const endMonth = startMonth
+    ? new Date(startMonth.getFullYear(), startMonth.getMonth() + BOOKING_WINDOW_MONTHS - 1)
+    : undefined;
+
+  const prompt = !checkIn
+    ? 'Select a check-in date.'
+    : !checkOut
+      ? 'Select a check-out date.'
+      : `${nights} ${nights === 1 ? 'night' : 'nights'} selected.`;
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-4">
+    <form action={formAction} onSubmit={handleSubmit} className="space-y-4">
       <input type="hidden" name="homeId" value={homeId} />
-      {state.error && (
+      <input type="hidden" name="checkIn" value={checkIn} />
+      <input type="hidden" name="checkOut" value={checkOut} />
+      {shown && (
         <p id="reservation-error" role="alert" className="flex items-start gap-2 text-sm text-destructive">
           <CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
-          {state.error}
+          {shown.error}
         </p>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <Label className="mb-2" htmlFor="checkIn">Check-in</Label>
-          <Input
-            id="checkIn"
-            type="date"
-            name="checkIn"
-            value={checkIn}
-            min={today}
-            onChange={(event) => setCheckIn(event.currentTarget.value)}
-            required
-            className="h-11"
-            {...invalidProps('checkIn')}
-          />
+      {/* Summary of the chosen range; the calendar below is where dates are picked */}
+      <div className="grid grid-cols-2 overflow-hidden rounded-xl border text-sm">
+        <div className={cn('px-3 py-2', !checkIn && 'bg-muted/40')}>
+          <p className="text-xs font-semibold uppercase tracking-wide">Check-in</p>
+          <p className={cn('mt-0.5', !checkIn && 'text-muted-foreground')}>
+            {inDate ? formatStayDate(inDate) : 'Add date'}
+          </p>
         </div>
-        <div>
-          <Label className="mb-2" htmlFor="checkOut">Check-out</Label>
-          <Input
-            id="checkOut"
-            type="date"
-            name="checkOut"
-            value={checkOut}
-            min={minCheckOut}
-            onChange={(event) => setCheckOut(event.currentTarget.value)}
-            required
-            className="h-11"
-            {...invalidProps('checkOut')}
-          />
+        <div className={cn('border-l px-3 py-2', !checkOut && 'bg-muted/40')}>
+          <p className="text-xs font-semibold uppercase tracking-wide">Check-out</p>
+          <p className={cn('mt-0.5', !checkOut && 'text-muted-foreground')}>
+            {outDate ? formatStayDate(outDate) : 'Add date'}
+          </p>
         </div>
+      </div>
+
+      <div
+        ref={calendarRef}
+        tabIndex={-1}
+        role="group"
+        aria-label="Choose check-in and check-out dates"
+        className={cn(
+          'rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+          datesInvalid && 'ring-2 ring-destructive/40'
+        )}
+        {...(datesInvalid && { 'aria-describedby': 'reservation-error' })}
+      >
+        <Calendar
+          mode="range"
+          // Remounting when the restored dates change keeps the shown month on the selection
+          key={state.values?.checkIn}
+          defaultMonth={inDate ? fromDateInput(checkIn) : startMonth}
+          startMonth={startMonth}
+          endMonth={endMonth}
+          numberOfMonths={twoMonths ? 2 : 1}
+          selected={{ from: inDate && fromDateInput(checkIn), to: outDate && fromDateInput(checkOut) }}
+          onSelect={(_range, triggerDate) => handleDayClick(triggerDate)}
+          disabled={isDayDisabled}
+          modifiers={{ booked: (date) => isNightBooked(toDateInput(date), bookedStays) }}
+          modifiersClassNames={{ booked: '[&>button]:line-through' }}
+          classNames={{
+            selected: '[&>button]:bg-brand [&>button]:text-brand-foreground [&>button]:hover:bg-brand/90',
+            // The band between the two dates; DayPicker only sets these once both dates are chosen
+            range_start: 'rounded-l-full bg-brand-soft',
+            range_end: 'rounded-r-full bg-brand-soft',
+            range_middle:
+              'bg-brand-soft [&>button]:!bg-transparent [&>button]:!text-foreground [&>button]:hover:!bg-accent',
+          }}
+        />
+      </div>
+
+      <div className="flex items-center justify-between gap-3 text-sm">
+        <p aria-live="polite" className="text-muted-foreground">
+          {prompt}
+          {bookedStays.length > 0 && <span className="block text-xs">Crossed-out dates are booked.</span>}
+        </p>
+        {checkIn && (
+          <button
+            type="button"
+            onClick={clearDates}
+            className="-mr-2 min-h-11 shrink-0 rounded-md px-2 font-medium underline underline-offset-4 outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          >
+            Clear dates
+          </button>
+        )}
       </div>
 
       <div>

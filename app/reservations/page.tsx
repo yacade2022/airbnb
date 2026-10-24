@@ -5,6 +5,8 @@ import { CircleCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SubmitButton } from '@/components/form/Button';
 import EmptyState from '@/components/global/EmptyState';
+import PhotoCredit from '@/components/global/PhotoCredit';
+import { findDemoPhotoCredit } from '@/lib/demoListings';
 import { cancelReservation, fetchReservations } from '@/utils/actions';
 import { nightsBetween } from '@/lib/reservationRules';
 import { formatPrice, formatStayDates } from '@/lib/format';
@@ -47,6 +49,7 @@ async function ReservationsPage({ searchParams }: ReservationsPageProps) {
             const { home } = reservation;
             const nights = nightsBetween(reservation.checkIn, reservation.checkOut);
             const isPast = reservation.checkOut <= now;
+            const credit = findDemoPhotoCredit(home.photo);
 
             return (
               <li
@@ -71,6 +74,7 @@ async function ReservationsPage({ searchParams }: ReservationsPageProps) {
                     {reservation.guests === 1 ? 'guest' : 'guests'} ·{' '}
                     <span className="font-semibold text-foreground">{formatPrice(reservation.totalPrice)} total</span>
                   </p>
+                  {credit && <PhotoCredit credit={credit} className="mt-2 text-muted-foreground" />}
                 </div>
                 {isPast ? (
                   <span className="text-sm text-muted-foreground">Completed</span>

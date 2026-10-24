@@ -1,8 +1,10 @@
 import type { ImageCredit } from '@/lib/imageCredits'
 import { cn } from '@/lib/utils'
 
-// CC BY attribution shown next to every decorative photo
-function PhotoCredit({ credit, className }: { credit: ImageCredit; className?: string }) {
+type Credit = Pick<ImageCredit, 'creator' | 'sourceUrl' | 'license' | 'licenseUrl'>
+
+// CC BY attribution shown next to every decorative photo and demo listing photo
+function PhotoCredit({ credit, className }: { credit: Credit; className?: string }) {
   return (
     <p className={cn('text-[11px] leading-tight', className)}>
       Illustrative photo:{' '}

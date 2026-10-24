@@ -23,3 +23,38 @@ export function localToday() {
   const now = new Date();
   return new Date(now.getTime() - now.getTimezoneOffset() * 60 * 1000).toISOString().slice(0, 10);
 }
+
+// ---- Booking calendar ----
+// The calendar works with YYYY-MM-DD strings, which compare correctly as plain strings
+// and avoid time zone shifts between the server's UTC dates and the visitor's local dates
+
+// A booked stay; checkOut is exclusive, so that day is free for the next guest to check in
+export type BookedStay = { checkIn: string; checkOut: string };
+
+// A local calendar date (as the date picker uses) as YYYY-MM-DD
+export const toDateInput = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+// YYYY-MM-DD as a local calendar date, for the date picker
+export function fromDateInput(value: string) {
+  const [year, month, day] = value.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
+// Whether someone is already staying the night that starts on `day`
+export const isNightBooked = (day: string, stays: BookedStay[]) =>
+  stays.some((stay) => stay.checkIn <= day && day < stay.checkOut);
+
+// The latest check-out for a stay starting on checkIn: the next booked night (checking out
+// the day someone else checks in is fine), capped at MAX_NIGHTS
+export function latestCheckOut(checkIn: string, stays: BookedStay[]) {
+  const limit = addDays(parseDateInput(checkIn)!, MAX_NIGHTS).toISOString().slice(0, 10);
+  return stays.reduce(
+    (latest, stay) => (stay.checkIn > checkIn && stay.checkIn < latest ? stay.checkIn : latest),
+    limit
+  );
+}
+
+// Same rule as the server's overlap check: each stay starts before the other ends
+export const overlapsBookedStay = (checkIn: string, checkOut: string, stays: BookedStay[]) =>
+  stays.some((stay) => stay.checkIn < checkOut && checkIn < stay.checkOut);

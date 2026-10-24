@@ -2,7 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Home } from '@prisma/client'
 import { findCategoryByTitle } from '@/lib/categoryHouses'
+import { findDemoPhotoCredit } from '@/lib/demoListings'
 import { formatPrice } from '@/lib/format'
+import PhotoCredit from '@/components/global/PhotoCredit'
 import FavoriteButton from './FavoriteButton'
 
 // Shared with the loading skeleton so it matches the real grid
@@ -16,6 +18,7 @@ type HomeCardProps = {
 
 function HomeCard({ home, isFavorite, priority = false }: HomeCardProps) {
   const Icon = findCategoryByTitle(home.title)?.icon
+  const credit = findDemoPhotoCredit(home.photo)
 
   return (
     // has-[]: shows the link's keyboard focus around the whole card
@@ -25,7 +28,7 @@ function HomeCard({ home, isFavorite, priority = false }: HomeCardProps) {
           src={home.photo}
           fill
           sizes='(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 480px) 50vw, 100vw'
-          alt={`${home.title} home in ${home.location}`}
+          alt={credit?.alt ?? `${home.title} home in ${home.location}`}
           className='object-cover transition-transform duration-300 group-hover:scale-[1.03]'
           priority={priority}
         />
@@ -47,6 +50,8 @@ function HomeCard({ home, isFavorite, priority = false }: HomeCardProps) {
         <p className='pt-1 text-sm'>
           <span className='font-semibold'>{formatPrice(home.price)}</span> <span className='text-muted-foreground'>night</span>
         </p>
+        {/* relative z-10 keeps the credit links clickable above the card's link overlay */}
+        {credit && <PhotoCredit credit={credit} className='relative z-10 w-fit pt-1 text-muted-foreground' />}
       </div>
     </article>
   )

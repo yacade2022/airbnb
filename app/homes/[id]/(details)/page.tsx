@@ -3,16 +3,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
-import { ArrowLeft, CalendarDays, CircleCheck, MapPin } from 'lucide-react';
+import { ArrowLeft, CalendarDays, CircleCheck, Info, MapPin } from 'lucide-react';
 import { fetchBookedDates, fetchFavoriteIds, fetchHomeById } from '@/utils/actions';
 import { findCategoryByTitle } from '@/lib/categoryHouses';
 import { formatListedDate, formatPrice, formatStayDates } from '@/lib/format';
 import FavoriteButton from '@/components/home/FavoriteButton';
 import ReservationForm from '@/components/form/ReservationForm';
+import ListingActions from '@/components/home/ListingActions';
+import PhotoCredit from '@/components/global/PhotoCredit';
+import { findDemoPhotoCredit } from '@/lib/demoListings';
+import { canManageHome, getCurrentUser } from '@/lib/auth';
 
 type HomePageProps = {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ created?: string }>;
+  searchParams: Promise<{ created?: string; updated?: string }>;
 };
 
 // Shared by generateMetadata and the page so the home is only queried once per request
@@ -24,10 +28,16 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
 }
 
 async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
-  const [{ id }, { created }] = await Promise.all([params, searchParams]);
+  const [{ id }, { created, updated }] = await Promise.all([params, searchParams]);
   const home = await getHome(id);
   if (!home) notFound();
-  const [favoriteIds, bookedDates] = await Promise.all([fetchFavoriteIds(), fetchBookedDates(home.id)]);
+  const [favoriteIds, bookedDates, user] = await Promise.all([
+    fetchFavoriteIds(),
+    fetchBookedDates(home.id),
+    getCurrentUser(),
+  ]);
+  const canManage = canManageHome(user, home);
+  const photoCredit = findDemoPhotoCredit(home.photo);
 
   const category = findCategoryByTitle(home.title);
   const CategoryIcon = category?.icon;
@@ -54,6 +64,21 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
           </p>
         </div>
       )}
+      {updated === '1' && (
+        <div role="status" className="mt-4 flex items-start gap-3 rounded-xl border border-success/30 bg-success-soft p-4 text-sm text-success">
+          <CircleCheck className="mt-0.5 size-5 shrink-0" aria-hidden />
+          <p><span className="font-semibold">Your changes are saved.</span></p>
+        </div>
+      )}
+
+      {canManage && (
+        <div className="mt-4 flex flex-col gap-3 rounded-xl border bg-muted/40 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
+            {home.ownerId === user?.id ? 'This is your listing.' : 'You can manage this listing as admin.'}
+          </p>
+          <ListingActions home={home} returnTo={home.ownerId === user?.id ? '/my-listings' : '/admin'} />
+        </div>
+      )}
 
       <header className="mt-4">
         <div className="flex items-start justify-between gap-4">
@@ -76,7 +101,15 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
             <CalendarDays className="size-4" aria-hidden />
             Listed {formatListedDate(home.createdAt)}
           </span>
+          {home.owner && <span>Hosted by {home.owner.name}</span>}
         </div>
+        {photoCredit && (
+          <p className="mt-4 flex items-start gap-3 rounded-xl border bg-muted/40 p-4 text-sm text-muted-foreground">
+            <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
+            Demo listing: sample data that shows how the site works. The photo is illustrative and isn&apos;t of a
+            real rental.
+          </p>
+        )}
       </header>
 
       {/* Mobile order: photo, price, description. On large screens the price card sits in a sticky right column */}
@@ -85,21 +118,24 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted sm:aspect-[16/10]">
             <Image
               src={home.photo}
-              alt={`Photo of this ${home.title.toLowerCase()} home in ${home.location}`}
+              alt={photoCredit?.alt ?? `Photo of this ${home.title.toLowerCase()} home in ${home.location}`}
               fill
               priority
               sizes="(min-width: 1280px) 860px, (min-width: 1024px) 66vw, 100vw"
               className="object-cover"
             />
           </div>
-          <a
-            href={home.photo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block py-3 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
-          >
-            View full-size photo
-          </a>
+          <div className="flex flex-wrap items-center justify-between gap-x-4">
+            <a
+              href={home.photo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block py-3 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            >
+              View full-size photo
+            </a>
+            {photoCredit && <PhotoCredit credit={photoCredit} className="text-muted-foreground" />}
+          </div>
         </div>
 
         <aside aria-label="Price and booking" className="lg:sticky lg:top-28 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
@@ -122,7 +158,14 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
             </dl>
             <div className="mt-5 border-t pt-5">
               <h2 className="mb-4 font-semibold">Reserve</h2>
-              <ReservationForm homeId={home.id} price={home.price} />
+              <ReservationForm
+                homeId={home.id}
+                price={home.price}
+                bookedStays={bookedDates.map((stay) => ({
+                  checkIn: stay.checkIn.toISOString().slice(0, 10),
+                  checkOut: stay.checkOut.toISOString().slice(0, 10),
+                }))}
+              />
             </div>
             {bookedDates.length > 0 && (
               <div className="mt-5 border-t pt-5 text-sm">

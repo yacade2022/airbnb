@@ -14,13 +14,35 @@ generator client {
 
 
 
-model User {
-id  String @id @default(uuid())
-name String
-email String
-profileImage String?
+enum Role {
+  USER
+  ADMIN
 }
 
+// role can only become ADMIN through scripts/make-admin.mjs, never through registration
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  profileImage String?
+  passwordHash String
+  role         Role      @default(USER)
+  createdAt    DateTime  @default(now())
+
+  homes        Home[]
+  sessions     Session[]
+}
+
+// id is a SHA-256 hash of the session cookie's token, so a leaked database row can't be used to log in
+model Session {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
 
 model Home {
   id  String @id @default(uuid())
@@ -33,8 +55,14 @@ model Home {
   
   createdAt    DateTime   @default(now())
 
+  // Optional only because listings created before accounts existed have no owner
+  ownerId      String?
+  owner        User?      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
   favorites    Favorite[]
   reservations Reservation[]
+
+  @@index([ownerId])
 }
 
 // guestId is the anonymous id from the guest cookie (lib/guest.ts) until accounts exist

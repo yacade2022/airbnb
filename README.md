@@ -20,6 +20,31 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Accounts and admin
+
+- Anyone can browse listings. Adding a home requires an account: `/register`, then `/login`, which returns you to the add-home form.
+- Owners can edit or delete only their own listings (`/my-listings`). Every check runs on the server in `utils/actions.ts`, using `lib/auth.ts`.
+- Registration always creates regular users. To make an existing account the admin (this also gives it any listings with no owner):
+
+  ```bash
+  npm run make-admin -- someone@example.com            # grant
+  npm run make-admin -- someone@example.com --revoke   # remove
+  ```
+
+- The admin dashboard is at `/admin`; other users get a 404 there.
+
+## Demo listings
+
+48 demo listings, 4 per category, use the openly licensed photos in `public/images/categories`
+(sources and licenses in `ATTRIBUTION.md` there). They're owned by the admin account and show a
+"Demo listing" note and the photo's credit.
+
+```bash
+npm run seed-demo                          # add them (skips any that already exist)
+npm run seed-demo -- someone@example.com   # add them owned by a specific account
+npm run seed-demo -- --remove              # delete them, with their favorites and reservations
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -4,8 +4,17 @@ import NavSearch, { SearchForm } from './NavSearch'
 import AddHome from './AddHome'
 import LinksDropDown from './LinksDropDown'
 import Container from '../global/Container'
+import { unstable_rethrow } from 'next/navigation'
+import { getCurrentUser } from '@/lib/auth'
 
-function Navbar() {
+async function Navbar() {
+  // Shown as logged out if the database is unreachable, so the header (and the page) still render
+  const user = await getCurrentUser().catch((error) => {
+    // Lets Next's own control-flow errors (e.g. "this page is dynamic") through
+    unstable_rethrow(error)
+    console.error('Error loading the current user:', error)
+    return null
+  })
   // NavSearch reads the URL, so it needs a Suspense boundary; the fallback is the same form, empty
   const search = (className: string) => (
     <Suspense fallback={<SearchForm className={className} />}>
@@ -21,7 +30,7 @@ function Navbar() {
           {search('hidden md:block w-full max-w-sm')}
           <div className='flex shrink-0 items-center gap-2'>
             <AddHome />
-            <LinksDropDown />
+            <LinksDropDown user={user} />
           </div>
         </div>
         <div className='pb-3 md:hidden'>{search('')}</div>

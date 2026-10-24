@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // vi.mock calls are hoisted, so the mocks they use must be hoisted too
-const { db, storage, bucket, revalidatePath, redirect } = vi.hoisted(() => {
+const { db, storage, bucket, revalidatePath, redirect, getCurrentUser } = vi.hoisted(() => {
   const bucket = {
     upload: vi.fn(),
     getPublicUrl: vi.fn(),
@@ -16,6 +16,7 @@ const { db, storage, bucket, revalidatePath, redirect } = vi.hoisted(() => {
     redirect: vi.fn(() => {
       throw new Error('NEXT_REDIRECT');
     }),
+    getCurrentUser: vi.fn(),
   };
 });
 
@@ -23,6 +24,11 @@ vi.mock('./db', () => ({ default: db }));
 vi.mock('@/lib/supabase', () => ({ getSupabase: () => ({ storage }) }));
 vi.mock('next/cache', () => ({ revalidatePath }));
 vi.mock('next/navigation', () => ({ redirect }));
+// Only the session lookup is faked; the permission helpers are the real ones
+vi.mock('@/lib/auth', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth')>()),
+  getCurrentUser,
+}));
 
 import { addHomeToList, fetchAllHome, fetchHomeById } from './actions';
 
@@ -57,7 +63,27 @@ beforeEach(() => {
   bucket.getPublicUrl.mockReturnValue({ data: { publicUrl: PUBLIC_URL } });
   bucket.remove.mockResolvedValue({ data: [], error: null });
   db.home.create.mockResolvedValue({ id: 'home-1' });
+  getCurrentUser.mockResolvedValue({ id: 'user-1', name: 'Ana', email: 'ana@example.com', role: 'USER' });
   vi.spyOn(console, 'error').mockImplementation(() => {});
+});
+
+describe('addHomeToList authentication', () => {
+  it('sends logged-out visitors to log in, then back to the form, without uploading or saving', async () => {
+    getCurrentUser.mockResolvedValue(null);
+
+    await expect(submit()).rejects.toThrow('NEXT_REDIRECT');
+    expect(redirect).toHaveBeenCalledWith('/login?next=%2FaddHomeToList');
+    expect(bucket.upload).not.toHaveBeenCalled();
+    expect(db.home.create).not.toHaveBeenCalled();
+  });
+
+  it('ignores an ownerId sent in the form and always uses the logged-in user', async () => {
+    const form = buildForm();
+    form.append('ownerId', 'someone-else');
+
+    await expect(addHomeToList({}, form)).rejects.toThrow('NEXT_REDIRECT');
+    expect(db.home.create).toHaveBeenCalledWith({ data: expect.objectContaining({ ownerId: 'user-1' }) });
+  });
 });
 
 describe('addHomeToList validation', () => {
@@ -123,6 +149,7 @@ describe('addHomeToList success', () => {
         description: 'Sunny flat near the river',
         price: 120,
         photo: PUBLIC_URL,
+        ownerId: 'user-1',
       },
     });
     expect(revalidatePath).toHaveBeenCalledWith('/');
@@ -202,10 +229,13 @@ describe('fetchAllHome', () => {
 });
 
 describe('fetchHomeById', () => {
-  it('looks the home up by id', async () => {
+  it("looks the home up by id, with only the owner's name", async () => {
     db.home.findUnique.mockResolvedValue({ id: 'home-1' });
 
     await expect(fetchHomeById('home-1')).resolves.toEqual({ id: 'home-1' });
-    expect(db.home.findUnique).toHaveBeenCalledWith({ where: { id: 'home-1' } });
+    expect(db.home.findUnique).toHaveBeenCalledWith({
+      where: { id: 'home-1' },
+      include: { owner: { select: { name: true } } },
+    });
   });
 });

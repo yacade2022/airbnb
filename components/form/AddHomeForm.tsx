@@ -3,13 +3,15 @@
 import { useActionState, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CircleAlert, ImagePlus } from 'lucide-react';
+import { ImagePlus } from 'lucide-react';
+import type { Home } from '@prisma/client';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { SubmitButton } from '@/components/form/Button';
-import { addHomeToList, type AddHomeField, type AddHomeState } from '@/utils/actions';
+import { FieldError, FormError } from '@/components/form/FieldError';
+import { addHomeToList, updateHome, type AddHomeField, type AddHomeState } from '@/utils/actions';
 import { categoryHouses } from '@/lib/categoryHouses';
 import { MAX_DESCRIPTION_LENGTH, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
 import { cn } from '@/lib/utils';
@@ -19,20 +21,21 @@ const initialState: AddHomeState = {};
 const formatSize = (bytes: number) =>
   bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 
-function FieldError({ id, message }: { id: string; message?: string }) {
-  if (!message) return null;
-  return (
-    <p id={id} className="mt-1.5 flex items-center gap-1.5 text-sm text-destructive">
-      <CircleAlert className="size-4 shrink-0" aria-hidden />
-      {message}
-    </p>
-  );
-}
+type AddHomeFormProps = {
+  // Passing a home switches the form to editing it: fields start filled in and the photo is optional
+  home?: Pick<Home, 'id' | 'title' | 'location' | 'description' | 'price' | 'photo'>;
+};
 
-function AddHomeForm() {
-  const [state, formAction] = useActionState(addHomeToList, initialState);
+function AddHomeForm({ home }: AddHomeFormProps) {
+  // When editing, the starting values are the home's, so the fields below need no special case
+  const [state, formAction] = useActionState(
+    home ? updateHome : addHomeToList,
+    home
+      ? { values: { title: home.title, location: home.location, description: home.description, price: String(home.price) } }
+      : initialState
+  );
   const formRef = useRef<HTMLFormElement>(null);
-  const [descriptionLength, setDescriptionLength] = useState(0);
+  const [descriptionLength, setDescriptionLength] = useState(home?.description.length ?? 0);
   const [preview, setPreview] = useState<{ url: string; name: string; size: number } | null>(null);
   const [imageError, setImageError] = useState<string>();
 
@@ -77,14 +80,13 @@ function AddHomeForm() {
 
   return (
     <form ref={formRef} action={formAction} className="space-y-6">
-      {formError && (
-        <div role="alert" className="flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/5 p-4 text-sm text-destructive">
-          <CircleAlert className="mt-0.5 size-5 shrink-0" aria-hidden />
-          <p>
-            {formError} <span className="text-foreground">Your details were kept; please choose your photo again.</span>
-          </p>
-        </div>
-      )}
+      {/* Which home to update; the server checks the user may edit it */}
+      {home && <input type="hidden" name="homeId" value={home.id} />}
+      <FormError message={formError}>
+        <span className="text-foreground">
+          Your details were kept{home ? '.' : '; please choose your photo again.'}
+        </span>
+      </FormError>
       {/* Screen readers hear field errors when they appear; the field itself also gets focus */}
       <p className="sr-only" aria-live="assertive">{state.field ? state.error : ''}</p>
 
@@ -179,7 +181,7 @@ function AddHomeForm() {
             type="file"
             name="image"
             accept="image/*"
-            required
+            required={!home}
             onChange={handleImageChange}
             className="peer sr-only"
             aria-labelledby="image-label image-hint"
@@ -191,10 +193,20 @@ function AddHomeForm() {
               'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-6 text-center transition-colors hover:border-foreground/40 hover:bg-muted/50',
               'peer-focus-visible:border-ring peer-focus-visible:ring-[3px] peer-focus-visible:ring-ring/50',
               imageMessage && 'border-destructive/60',
-              preview && 'p-3'
+              (preview || home) && 'p-3'
             )}
           >
-            {preview ? (
+            {!preview && home ? (
+              <span className="flex w-full flex-col items-center gap-3 sm:flex-row sm:text-left">
+                <span className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-lg bg-muted sm:w-40">
+                  <Image src={home.photo} alt="Current photo of this home" fill sizes="(min-width: 640px) 160px, 100vw" className="object-cover" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium">Current photo</span>
+                  <span className="mt-2 block text-sm font-medium underline underline-offset-4">Choose a different photo</span>
+                </span>
+              </span>
+            ) : preview ? (
               <span className="flex w-full flex-col items-center gap-3 sm:flex-row sm:text-left">
                 <span className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-lg bg-muted sm:w-40">
                   {/* Local blob preview, nothing to optimise */}
@@ -212,8 +224,8 @@ function AddHomeForm() {
                 <span className="text-sm font-medium">Choose a photo</span>
               </>
             )}
-            <span id="image-hint" className={cn('text-xs text-muted-foreground', preview && 'sr-only')}>
-              JPG, PNG, WebP or AVIF, up to 4 MB.
+            <span id="image-hint" className={cn('text-xs text-muted-foreground', (preview || home) && 'sr-only')}>
+              JPG, PNG, WebP or AVIF, up to 4 MB.{home && ' Leave empty to keep the current photo.'}
             </span>
           </label>
           <FieldError id="image-error" message={imageMessage} />
@@ -222,9 +234,9 @@ function AddHomeForm() {
 
       <div className="flex flex-col-reverse gap-3 border-t pt-6 sm:flex-row sm:justify-end">
         <Button asChild variant="ghost" className="h-11 px-5">
-          <Link href="/">Cancel</Link>
+          <Link href={home ? `/homes/${home.id}` : '/'}>Cancel</Link>
         </Button>
-        <SubmitButton text="Publish listing" variant="brand" className="h-11 w-full sm:w-auto" />
+        <SubmitButton text={home ? 'Save changes' : 'Publish listing'} variant="brand" className="h-11 w-full sm:w-auto" />
       </div>
     </form>
   );

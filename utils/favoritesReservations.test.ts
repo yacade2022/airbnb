@@ -141,6 +141,36 @@ describe('createReservation', () => {
     const state = await book();
     expect(state.error).toMatch(/already booked/);
     expect(tx.reservation.create).not.toHaveBeenCalled();
+    // The listing page is refreshed so its calendar shows the booking that got in first
+    expect(revalidatePath).toHaveBeenCalledWith('/homes/home-1');
+  });
+
+  const serializationFailure = () =>
+    new Prisma.PrismaClientKnownRequestError('could not serialize access', { code: 'P2034', clientVersion: 'test' });
+
+  it('retries when a concurrent booking aborts the transaction, then sees the other booking', async () => {
+    db.$transaction.mockRejectedValueOnce(serializationFailure());
+    tx.reservation.findFirst.mockResolvedValue({ id: 'other' });
+    const state = await book();
+    expect(db.$transaction).toHaveBeenCalledTimes(2);
+    expect(state.error).toMatch(/already booked/);
+    expect(tx.reservation.create).not.toHaveBeenCalled();
+  });
+
+  it('books on retry when the concurrent booking did not overlap', async () => {
+    db.$transaction.mockRejectedValueOnce(serializationFailure());
+    await expect(book()).rejects.toThrow('NEXT_REDIRECT');
+    expect(db.$transaction).toHaveBeenCalledTimes(2);
+  });
+
+  it('gives up after repeated conflicts', async () => {
+    db.$transaction
+      .mockRejectedValueOnce(serializationFailure())
+      .mockRejectedValueOnce(serializationFailure())
+      .mockRejectedValueOnce(serializationFailure());
+    const state = await book();
+    expect(db.$transaction).toHaveBeenCalledTimes(3);
+    expect(state.error).toMatch(/Something went wrong/);
   });
 
   it.each([

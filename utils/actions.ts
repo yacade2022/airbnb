@@ -6,6 +6,8 @@ import { categoryHouses } from '@/lib/categoryHouses';
 import { MAX_DESCRIPTION_LENGTH, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
 import { MAX_GUESTS, MAX_NIGHTS, addDays, nightsBetween, parseDateInput } from '@/lib/reservationRules';
 import { getGuestId, getOrCreateGuestId } from '@/lib/guest';
+import { canManageHome, getCurrentUser, isAdmin } from '@/lib/auth';
+import { loginPath, safeNextPath } from '@/lib/authRules';
 import { Prisma } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -17,10 +19,14 @@ export type AddHomeField = keyof AddHomeValues | 'image';
 // field names the input the error belongs to, so the form can highlight and focus it
 export type AddHomeState = { error?: string; field?: AddHomeField; values?: AddHomeValues };
 
-export async function addHomeToList(
-    _prevState: AddHomeState,
-    formData: FormData
-): Promise<AddHomeState> {
+type ListingFields = { title: string; location: string; description: string; price: number; image?: File };
+
+// Validate on the server - client-side `required` attributes can be bypassed.
+// The image is optional when editing, where leaving it empty keeps the current photo
+function parseListingForm(
+    formData: FormData,
+    { imageRequired }: { imageRequired: boolean }
+): { fields: ListingFields; values: AddHomeValues } | { state: AddHomeState } {
     const title = String(formData.get('title') ?? '').trim();
     const location = String(formData.get('location') ?? '').trim();
     const description = String(formData.get('description') ?? '').trim();
@@ -28,66 +34,107 @@ export async function addHomeToList(
     const price = Number(priceInput);
     const imageFile = formData.get('image');
     const values = { title, location, description, price: priceInput };
+    const fail = (error: string, field: AddHomeField) => ({ state: { error, field, values } });
 
-    // Validate on the server - client-side `required` attributes can be bypassed
     if (!categoryHouses.some((category) => category.title === title)) {
-        return { error: 'Please choose a valid category.', field: 'title', values };
+        return fail('Please choose a valid category.', 'title');
     }
-    if (!location) return { error: 'Please enter a location.', field: 'location', values };
+    if (!location) return fail('Please enter a location.', 'location');
     if (location.length > MAX_LOCATION_LENGTH) {
-        return { error: `Location must be ${MAX_LOCATION_LENGTH} characters or fewer.`, field: 'location', values };
+        return fail(`Location must be ${MAX_LOCATION_LENGTH} characters or fewer.`, 'location');
     }
-    if (!description) return { error: 'Please enter a description.', field: 'description', values };
+    if (!description) return fail('Please enter a description.', 'description');
     if (description.length > MAX_DESCRIPTION_LENGTH) {
-        return { error: `Description must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`, field: 'description', values };
+        return fail(`Description must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`, 'description');
     }
     if (!Number.isInteger(price) || price <= 0) {
-        return { error: 'Price must be a whole number greater than 0.', field: 'price', values };
+        return fail('Price must be a whole number greater than 0.', 'price');
     }
     // An empty file input still submits a File with size 0
     if (!(imageFile instanceof File) || imageFile.size === 0) {
-        return { error: 'Please choose an image.', field: 'image', values };
+        if (imageRequired) return fail('Please choose an image.', 'image');
+        return { fields: { title, location, description, price }, values };
     }
     if (!imageFile.type.startsWith('image/')) {
-        return { error: 'The uploaded file must be an image.', field: 'image', values };
+        return fail('The uploaded file must be an image.', 'image');
     }
     if (imageFile.size > MAX_IMAGE_SIZE) {
-        return { error: 'Image must be 4 MB or smaller.', field: 'image', values };
+        return fail('Image must be 4 MB or smaller.', 'image');
     }
+    return { fields: { title, location, description, price, image: imageFile }, values };
+}
 
+// Returns the storage path and public URL, or undefined if the upload failed
+async function uploadListingImage(imageFile: File) {
     const supabase = getSupabase();
+    // Sanitize the filename to remove special characters
+    const sanitizedFilename = imageFile.name
+        .replace(/[^a-zA-Z0-9.-]/g, '_')
+        .replace(/__+/g, '_');
+
+    const uniqueFilename = `${Date.now()}-${sanitizedFilename}`;
+
+    const { data: imageData, error } = await supabase.storage
+        .from('image')
+        .upload(uniqueFilename, new Uint8Array(await imageFile.arrayBuffer()), {
+            contentType: imageFile.type
+        });
+
+    if (error || !imageData?.path) {
+        console.error('Supabase storage error:', error);
+        return undefined;
+    }
+    return {
+        path: imageData.path,
+        url: supabase.storage.from('image').getPublicUrl(imageData.path).data.publicUrl,
+    };
+}
+
+const PUBLIC_IMAGE_PREFIX = '/storage/v1/object/public/image/';
+
+// Takes public URLs; best effort, since a leftover image file is harmless, so failures are only logged
+async function removeListingImages(photoUrls: string[]) {
+    const paths = photoUrls.flatMap((url) => {
+        const index = url.indexOf(PUBLIC_IMAGE_PREFIX);
+        return index === -1 ? [] : [decodeURIComponent(url.slice(index + PUBLIC_IMAGE_PREFIX.length))];
+    });
+    if (!paths.length) return;
+    try {
+        const { error } = await getSupabase().storage.from('image').remove(paths);
+        if (error) console.error('Supabase storage remove error:', error);
+    } catch (error) {
+        console.error('Supabase storage remove error:', error);
+    }
+}
+
+export async function addHomeToList(
+    _prevState: AddHomeState,
+    formData: FormData
+): Promise<AddHomeState> {
+    // Checked before anything else: only logged-in users can list a home
+    const user = await getCurrentUser();
+    if (!user) redirect(loginPath('/addHomeToList'));
+
+    const parsed = parseListingForm(formData, { imageRequired: true });
+    if ('state' in parsed) return parsed.state;
+    const { fields, values } = parsed;
+
     let uploadedPath: string | undefined;
     let homeId: string;
 
     try {
-        // Sanitize the filename to remove special characters
-        const sanitizedFilename = imageFile.name
-            .replace(/[^a-zA-Z0-9.-]/g, '_')
-            .replace(/__+/g, '_');
-
-        const uniqueFilename = `${Date.now()}-${sanitizedFilename}`;
-
-        const { data: imageData, error } = await supabase.storage
-            .from('image')
-            .upload(uniqueFilename, new Uint8Array(await imageFile.arrayBuffer()), {
-                contentType: imageFile.type
-            });
-
-        if (error || !imageData?.path) {
-            console.error('Supabase storage error:', error);
-            return { error: 'Image upload failed. Please try again.', values };
-        }
-        uploadedPath = imageData.path;
-
-        const imageUrl = supabase.storage.from('image').getPublicUrl(uploadedPath).data.publicUrl;
+        const upload = await uploadListingImage(fields.image!);
+        if (!upload) return { error: 'Image upload failed. Please try again.', values };
+        uploadedPath = upload.path;
 
         const home = await db.home.create({
             data: {
-                location,
-                title,
-                description,
-                price,
-                photo: imageUrl
+                location: fields.location,
+                title: fields.title,
+                description: fields.description,
+                price: fields.price,
+                photo: upload.url,
+                ownerId: user.id,
             }
         });
         homeId = home.id;
@@ -95,7 +142,7 @@ export async function addHomeToList(
         console.error('Error adding home to list:', error);
         // Don't leave an orphaned image behind if the database write failed
         if (uploadedPath) {
-            await supabase.storage.from('image').remove([uploadedPath]);
+            await getSupabase().storage.from('image').remove([uploadedPath]);
         }
         return { error: 'Something went wrong while saving your home. Please try again.', values };
     }
@@ -104,6 +151,68 @@ export async function addHomeToList(
     revalidatePath('/');
     // created=1 lets the listing page show a confirmation that the home was saved
     redirect(`/homes/${homeId}?created=1`);
+}
+
+// homeId comes from a hidden field, so it's only trusted after the ownership check below
+export async function updateHome(
+    _prevState: AddHomeState,
+    formData: FormData
+): Promise<AddHomeState> {
+    const homeId = String(formData.get('homeId') ?? '');
+    const user = await getCurrentUser();
+    if (!user) redirect(loginPath(`/homes/${homeId}/edit`));
+
+    const home = await db.home.findUnique({ where: { id: homeId }, select: { ownerId: true, photo: true } });
+    if (!home) return { error: 'This listing no longer exists.' };
+    if (!canManageHome(user, home)) return { error: 'You can only edit your own listings.' };
+
+    const parsed = parseListingForm(formData, { imageRequired: false });
+    if ('state' in parsed) return parsed.state;
+    const { fields, values } = parsed;
+
+    let upload: Awaited<ReturnType<typeof uploadListingImage>>;
+    try {
+        if (fields.image) {
+            upload = await uploadListingImage(fields.image);
+            if (!upload) return { error: 'Image upload failed. Please try again.', values };
+        }
+        // ownerId isn't in the update, so editing (even by the admin) never changes who owns a listing
+        await db.home.update({
+            where: { id: homeId },
+            data: {
+                title: fields.title,
+                location: fields.location,
+                description: fields.description,
+                price: fields.price,
+                ...(upload && { photo: upload.url }),
+            },
+        });
+    } catch (error) {
+        console.error('Error updating home:', error);
+        if (upload) await removeListingImages([upload.url]);
+        return { error: 'Something went wrong while saving your changes. Please try again.', values };
+    }
+    // The old photo is only removed once the new one is saved
+    if (upload) await removeListingImages([home.photo]);
+
+    revalidatePath('/', 'layout');
+    redirect(`/homes/${homeId}?updated=1`);
+}
+
+// Bound to a home id. returnTo is where to go afterwards, needed when deleting from the listing's own page
+export async function deleteHome(homeId: string, returnTo?: string) {
+    const user = await getCurrentUser();
+    if (!user) redirect(loginPath(`/homes/${homeId}`));
+
+    const home = await db.home.findUnique({ where: { id: homeId }, select: { ownerId: true, photo: true } });
+    if (!home || !canManageHome(user, home)) return;
+
+    // Favorites and reservations for the home are removed with it (onDelete: Cascade)
+    await db.home.delete({ where: { id: homeId } });
+    await removeListingImages([home.photo]);
+
+    revalidatePath('/', 'layout');
+    if (returnTo) redirect(safeNextPath(returnTo));
 }
 
 export const fetchAllHome = async (category?: string, search?: string) => {
@@ -127,8 +236,54 @@ export const fetchAllHome = async (category?: string, search?: string) => {
     return allHome;
 }
 
+// Only the owner's name is public, never their email
 export const fetchHomeById = async (id: string) => {
-    return db.home.findUnique({ where: { id } });
+    return db.home.findUnique({ where: { id }, include: { owner: { select: { name: true } } } });
+}
+
+// ---- Listings owned by the logged-in user ----
+
+export const fetchMyHomes = async () => {
+    const user = await getCurrentUser();
+    if (!user) return [];
+    return db.home.findMany({ where: { ownerId: user.id }, orderBy: { createdAt: 'desc' } });
+}
+
+// ---- Admin ----
+// Everything exported from a 'use server' file can be called directly from the browser,
+// so each of these checks the role itself instead of relying on the admin page's guard
+
+export const fetchAdminHomes = async () => {
+    if (!isAdmin(await getCurrentUser())) return [];
+    return db.home.findMany({
+        include: { owner: { select: { name: true, email: true } } },
+        orderBy: { createdAt: 'desc' },
+    });
+}
+
+export const fetchAdminUsers = async () => {
+    if (!isAdmin(await getCurrentUser())) return [];
+    return db.user.findMany({
+        select: { id: true, name: true, email: true, role: true, createdAt: true, _count: { select: { homes: true } } },
+        orderBy: { createdAt: 'asc' },
+    });
+}
+
+// Removes the account, its sessions and its listings. Admin accounts can't be deleted here,
+// so the admin can't lock themselves out; admin rights are managed with scripts/make-admin.mjs
+export async function deleteUser(userId: string) {
+    if (!isAdmin(await getCurrentUser())) return;
+
+    const target = await db.user.findUnique({
+        where: { id: userId },
+        select: { role: true, homes: { select: { photo: true } } },
+    });
+    if (!target || target.role === 'ADMIN') return;
+
+    // Sessions and listings go with the account (onDelete: Cascade)
+    await db.user.delete({ where: { id: userId } });
+    await removeListingImages(target.homes.map((home) => home.photo));
+    revalidatePath('/', 'layout');
 }
 
 // ---- Favorites ----
@@ -175,6 +330,21 @@ export const fetchFavoriteHomes = async () => {
 
 // ---- Reservations ----
 
+const MAX_BOOKING_ATTEMPTS = 3;
+
+// P2034: Postgres aborted a serializable transaction because a concurrent one conflicted with it.
+// Retrying re-runs the transaction's checks, which then see the other transaction's writes
+async function retryOnConflict<T>(run: () => Promise<T>) {
+    for (let attempt = 1; ; attempt++) {
+        try {
+            return await run();
+        } catch (error) {
+            const conflict = error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2034';
+            if (!conflict || attempt >= MAX_BOOKING_ATTEMPTS) throw error;
+        }
+    }
+}
+
 type ReservationValues = { checkIn: string; checkOut: string; guests: string };
 export type ReservationField = keyof ReservationValues;
 export type ReservationState = { error?: string; field?: ReservationField; values?: ReservationValues };
@@ -213,27 +383,32 @@ export async function createReservation(
     const guestId = await getOrCreateGuestId();
     let reservationId: string;
 
+    // Serializable so two people booking the same dates at once can't both pass the overlap check
+    const book = () => db.$transaction(async (tx) => {
+        const home = await tx.home.findUnique({ where: { id: homeId }, select: { price: true } });
+        if (!home) return { error: 'This home is no longer available.' };
+
+        // Two stays overlap when each starts before the other ends; checking out the day
+        // someone else checks in is fine
+        const clash = await tx.reservation.findFirst({
+            where: { homeId, checkIn: { lt: checkOut }, checkOut: { gt: checkIn } },
+            select: { id: true },
+        });
+        if (clash) return { error: 'Those dates are already booked. Please choose different dates.' };
+
+        const reservation = await tx.reservation.create({
+            data: { guestId, homeId, checkIn, checkOut, guests, totalPrice: nights * home.price },
+        });
+        return { id: reservation.id };
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+
     try {
-        // Serializable so two people booking the same dates at once can't both pass the overlap check
-        const result = await db.$transaction(async (tx) => {
-            const home = await tx.home.findUnique({ where: { id: homeId }, select: { price: true } });
-            if (!home) return { error: 'This home is no longer available.' };
-
-            // Two stays overlap when each starts before the other ends; checking out the day
-            // someone else checks in is fine
-            const clash = await tx.reservation.findFirst({
-                where: { homeId, checkIn: { lt: checkOut }, checkOut: { gt: checkIn } },
-                select: { id: true },
-            });
-            if (clash) return { error: 'Those dates are already booked. Please choose different dates.' };
-
-            const reservation = await tx.reservation.create({
-                data: { guestId, homeId, checkIn, checkOut, guests, totalPrice: nights * home.price },
-            });
-            return { id: reservation.id };
-        }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
-
-        if ('error' in result) return { error: result.error, field: 'checkIn', values };
+        const result = await retryOnConflict(book);
+        if ('error' in result) {
+            // Someone else's booking may be newer than the calendar the visitor saw, so refresh it
+            revalidatePath(`/homes/${homeId}`);
+            return { error: result.error, field: 'checkIn', values };
+        }
         reservationId = result.id;
     } catch (error) {
         console.error('Error creating reservation:', error);
