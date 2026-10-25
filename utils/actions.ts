@@ -3,7 +3,7 @@
 import db from './db'
 import { getSupabase } from "@/lib/supabase"
 import { categoryHouses } from '@/lib/categoryHouses';
-import { MAX_DESCRIPTION_LENGTH, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
+import { MAX_DESCRIPTION_LENGTH, MAX_GALLERY_PHOTOS, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
 import { MAX_GUESTS, MAX_NIGHTS, addDays, nightsBetween, parseDateInput } from '@/lib/reservationRules';
 import { getGuestId, getOrCreateGuestId } from '@/lib/guest';
 import { canManageHome, getCurrentUser, isAdmin } from '@/lib/auth';
@@ -13,13 +13,36 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 type AddHomeValues = { title: string; location: string; description: string; price: string };
-export type AddHomeField = keyof AddHomeValues | 'image';
+// gallery0 and gallery1 are the extra photo slots (MAX_GALLERY_PHOTOS)
+export type GalleryField = `gallery${number}`;
+export type AddHomeField = keyof AddHomeValues | 'image' | GalleryField;
 
 // values are sent back so the form can keep what the user typed (React resets it after the action);
 // field names the input the error belongs to, so the form can highlight and focus it
 export type AddHomeState = { error?: string; field?: AddHomeField; values?: AddHomeValues };
 
-type ListingFields = { title: string; location: string; description: string; price: number; image?: File };
+const galleryField = (slot: number): GalleryField => `gallery${slot}`;
+
+// One entry per gallery slot: a new file to upload, 'remove' to drop the slot's photo,
+// or undefined to keep it as it is
+type GallerySlot = File | 'remove' | undefined;
+type ListingFields = {
+    title: string;
+    location: string;
+    description: string;
+    price: number;
+    image?: File;
+    gallery: GallerySlot[];
+};
+
+// An image file from the form, undefined if none was chosen, or an error message
+function readImageFile(entry: FormDataEntryValue | null): File | undefined | { error: string } {
+    // An empty file input still submits a File with size 0
+    if (!(entry instanceof File) || entry.size === 0) return undefined;
+    if (!entry.type.startsWith('image/')) return { error: 'The uploaded file must be an image.' };
+    if (entry.size > MAX_IMAGE_SIZE) return { error: 'Image must be 4 MB or smaller.' };
+    return entry;
+}
 
 // Validate on the server - client-side `required` attributes can be bypassed.
 // The image is optional when editing, where leaving it empty keeps the current photo
@@ -32,7 +55,6 @@ function parseListingForm(
     const description = String(formData.get('description') ?? '').trim();
     const priceInput = String(formData.get('price') ?? '').trim();
     const price = Number(priceInput);
-    const imageFile = formData.get('image');
     const values = { title, location, description, price: priceInput };
     const fail = (error: string, field: AddHomeField) => ({ state: { error, field, values } });
 
@@ -50,18 +72,50 @@ function parseListingForm(
     if (!Number.isInteger(price) || price <= 0) {
         return fail('Price must be a whole number greater than 0.', 'price');
     }
-    // An empty file input still submits a File with size 0
-    if (!(imageFile instanceof File) || imageFile.size === 0) {
-        if (imageRequired) return fail('Please choose an image.', 'image');
-        return { fields: { title, location, description, price }, values };
+    const image = readImageFile(formData.get('image'));
+    if (image && 'error' in image) return fail(image.error, 'image');
+    if (!image && imageRequired) return fail('Please choose an image.', 'image');
+
+    // Gallery photos are optional; a new file in a slot wins over that slot's remove checkbox
+    const gallery: GallerySlot[] = [];
+    for (let slot = 0; slot < MAX_GALLERY_PHOTOS; slot++) {
+        const file = readImageFile(formData.get(galleryField(slot)));
+        if (file && 'error' in file) return fail(file.error, galleryField(slot));
+        gallery.push(file ?? (formData.get(`remove-${galleryField(slot)}`) === 'on' ? 'remove' : undefined));
     }
-    if (!imageFile.type.startsWith('image/')) {
-        return fail('The uploaded file must be an image.', 'image');
+    return { fields: { title, location, description, price, image, gallery }, values };
+}
+
+// Uploads a listing's new photos: the cover (if one was chosen) and each new gallery photo.
+// All or nothing: if one upload fails, the ones already made are removed again
+async function uploadListingPhotos(fields: ListingFields) {
+    const uploaded: string[] = [];
+    const upload = async (file: File) => {
+        const result = await uploadListingImage(file);
+        if (!result) throw new Error('Image upload failed');
+        uploaded.push(result.url);
+        return result.url;
+    };
+    try {
+        const cover = fields.image && (await upload(fields.image));
+        const gallery: (string | 'remove' | undefined)[] = [];
+        for (const slot of fields.gallery) gallery.push(slot instanceof File ? await upload(slot) : slot);
+        return { cover, gallery, uploaded };
+    } catch (error) {
+        console.error('Error uploading listing photos:', error);
+        await removeListingImages(uploaded);
+        return undefined;
     }
-    if (imageFile.size > MAX_IMAGE_SIZE) {
-        return fail('Image must be 4 MB or smaller.', 'image');
-    }
-    return { fields: { title, location, description, price, image: imageFile }, values };
+}
+
+// The gallery after a change: each slot keeps its photo unless it was replaced or removed.
+// Empty slots are dropped so the remaining photos stay in order
+function nextGallery(current: string[], changes: (string | 'remove' | undefined)[]) {
+    return changes.flatMap((change, slot) => {
+        if (change === 'remove') return [];
+        const photo = change ?? current[slot];
+        return photo ? [photo] : [];
+    });
 }
 
 // Returns the storage path and public URL, or undefined if the upload failed
@@ -119,31 +173,28 @@ export async function addHomeToList(
     if ('state' in parsed) return parsed.state;
     const { fields, values } = parsed;
 
-    let uploadedPath: string | undefined;
     let homeId: string;
 
+    const photos = await uploadListingPhotos(fields);
+    if (!photos) return { error: 'Image upload failed. Please try again.', values };
     try {
-        const upload = await uploadListingImage(fields.image!);
-        if (!upload) return { error: 'Image upload failed. Please try again.', values };
-        uploadedPath = upload.path;
-
         const home = await db.home.create({
             data: {
                 location: fields.location,
                 title: fields.title,
                 description: fields.description,
                 price: fields.price,
-                photo: upload.url,
+                // Always set: parseListingForm requires the cover photo for new listings
+                photo: photos.cover!,
+                gallery: nextGallery([], photos.gallery),
                 ownerId: user.id,
             }
         });
         homeId = home.id;
     } catch (error) {
         console.error('Error adding home to list:', error);
-        // Don't leave an orphaned image behind if the database write failed
-        if (uploadedPath) {
-            await getSupabase().storage.from('image').remove([uploadedPath]);
-        }
+        // Don't leave orphaned images behind if the database write failed
+        await removeListingImages(photos.uploaded);
         return { error: 'Something went wrong while saving your home. Please try again.', values };
     }
 
@@ -162,7 +213,7 @@ export async function updateHome(
     const user = await getCurrentUser();
     if (!user) redirect(loginPath(`/homes/${homeId}/edit`));
 
-    const home = await db.home.findUnique({ where: { id: homeId }, select: { ownerId: true, photo: true } });
+    const home = await db.home.findUnique({ where: { id: homeId }, select: { ownerId: true, photo: true, gallery: true } });
     if (!home) return { error: 'This listing no longer exists.' };
     if (!canManageHome(user, home)) return { error: 'You can only edit your own listings.' };
 
@@ -170,12 +221,10 @@ export async function updateHome(
     if ('state' in parsed) return parsed.state;
     const { fields, values } = parsed;
 
-    let upload: Awaited<ReturnType<typeof uploadListingImage>>;
+    const photos = await uploadListingPhotos(fields);
+    if (!photos) return { error: 'Image upload failed. Please try again.', values };
+    const gallery = nextGallery(home.gallery, photos.gallery);
     try {
-        if (fields.image) {
-            upload = await uploadListingImage(fields.image);
-            if (!upload) return { error: 'Image upload failed. Please try again.', values };
-        }
         // ownerId isn't in the update, so editing (even by the admin) never changes who owns a listing
         await db.home.update({
             where: { id: homeId },
@@ -184,16 +233,18 @@ export async function updateHome(
                 location: fields.location,
                 description: fields.description,
                 price: fields.price,
-                ...(upload && { photo: upload.url }),
+                ...(photos.cover && { photo: photos.cover }),
+                gallery,
             },
         });
     } catch (error) {
         console.error('Error updating home:', error);
-        if (upload) await removeListingImages([upload.url]);
+        await removeListingImages(photos.uploaded);
         return { error: 'Something went wrong while saving your changes. Please try again.', values };
     }
-    // The old photo is only removed once the new one is saved
-    if (upload) await removeListingImages([home.photo]);
+    // Replaced and removed photos are only deleted once the changes are saved
+    const kept = new Set([photos.cover ?? home.photo, ...gallery]);
+    await removeListingImages([home.photo, ...home.gallery].filter((photo) => !kept.has(photo)));
 
     revalidatePath('/', 'layout');
     redirect(`/homes/${homeId}?updated=1`);
@@ -204,12 +255,12 @@ export async function deleteHome(homeId: string, returnTo?: string) {
     const user = await getCurrentUser();
     if (!user) redirect(loginPath(`/homes/${homeId}`));
 
-    const home = await db.home.findUnique({ where: { id: homeId }, select: { ownerId: true, photo: true } });
+    const home = await db.home.findUnique({ where: { id: homeId }, select: { ownerId: true, photo: true, gallery: true } });
     if (!home || !canManageHome(user, home)) return;
 
     // Favorites and reservations for the home are removed with it (onDelete: Cascade)
     await db.home.delete({ where: { id: homeId } });
-    await removeListingImages([home.photo]);
+    await removeListingImages([home.photo, ...home.gallery]);
 
     revalidatePath('/', 'layout');
     if (returnTo) redirect(safeNextPath(returnTo));

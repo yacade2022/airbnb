@@ -51,6 +51,8 @@ model Home {
   description String  
   price       Int
   photo       String
+  // Up to two more photos (MAX_GALLERY_PHOTOS), shown beside the description; the cover photo isn't repeated here
+  gallery     String[]   @default([])
   location    String
   
   createdAt    DateTime   @default(now())

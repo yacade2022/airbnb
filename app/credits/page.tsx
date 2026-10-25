@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { imageCredits, type ImageCredit } from '@/lib/imageCredits';
-import { demoListings } from '@/lib/demoListings';
+import { demoPhotos } from '@/lib/demoListings';
 
 export const metadata: Metadata = { title: 'Image credits' };
 
@@ -55,7 +55,7 @@ function CreditsPage() {
 
       <h2 className="mt-10 text-xl font-semibold">Demo listing photos</h2>
       <ul className="mt-2 divide-y border-y">
-        {demoListings.map(({ photo }) => (
+        {demoPhotos.map((photo) => (
           <CreditItem key={photo.src} credit={photo} />
         ))}
       </ul>

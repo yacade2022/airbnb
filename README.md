@@ -40,6 +40,10 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 page (`/credits`), linked from the footer. Only CC BY 4.0, CC BY-SA 4.0, CC0 and public-domain
 photos may be used, since those licenses allow that (the tests check this).
 
+Listings can also have up to two gallery photos, shown beside the description. Hosts add them in the
+listing form. For demo listings they're the `gallery` entries in `lib/demoListings.json`: other
+photos of the same place as the cover, credited the same way. `npm run seed-demo` copies them to the database.
+
 ```bash
 npm run seed-demo                          # add them, and update text of existing ones
 npm run seed-demo -- someone@example.com   # add them owned by a specific account

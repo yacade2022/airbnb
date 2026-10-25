@@ -12,37 +12,97 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kesusj%C3%B6n_June_2015_05.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/lake/01-a.png",
+        "alt": "A long red timber cabin with a green door and a tin roof on dry grass, with a lake behind",
+        "title": "Kesusjön June 2015 04",
+        "creator": "Arild Vågen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kesusj%C3%B6n_June_2015_04.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/lake/01-b.png",
+        "alt": "The red timber cabin seen from the corner, with white-framed windows and the lake beyond",
+        "title": "Kesusjön June 2015 07",
+        "creator": "Arild Vågen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kesusj%C3%B6n_June_2015_07.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Lake",
-    "location": "Lake Stevens, Washington, USA",
-    "description": "Lakefront house on the north shore of Lake Stevens, with a private dock and swimming off the lawn.",
+    "location": "Järvenpää, Uusimaa, Finland",
+    "description": "White timber villa among pines near the shore of Lake Tuusula, with a warm living room of armchairs and big windows onto the forest.",
     "price": 230,
     "photo": {
       "src": "/images/categories/lake/02.png",
-      "alt": "Houses among tall evergreens along the shore of a calm lake",
-      "title": "Lake Stevens lakefront houses",
-      "creator": "ECTran71",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake_Stevens_lakefront_houses.JPG",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A white timber villa with a steep red tiled roof, a covered porch and a gravel drive among birches",
+      "title": "Ainola yard",
+      "creator": "Htm",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ainola_yard.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/lake/02-a.png",
+        "alt": "The white villa and its red roofs seen through tall pines above a flowering garden",
+        "title": "Ainola",
+        "creator": "Mika Pöpken",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ainola.JPG",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      },
+      {
+        "src": "/images/categories/lake/02-b.png",
+        "alt": "A living room with deep armchairs around a low table, a lamp and a row of windows",
+        "title": "Ainola rökrummet",
+        "creator": "Bengt Oberger",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ainola_r%C3%B6krummet.JPG",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Lake",
-    "location": "St. Moritz, Engadin, Switzerland",
-    "description": "Lakeside flat looking across the still water of Lake St. Moritz to the peaks of the Upper Engadin. Lakeside trails start at the door.",
+    "location": "Kirkkonummi, Uusimaa, Finland",
+    "description": "Romantic stone-and-timber manor on a wooded ridge above Lake Vitträsk, with vaulted rooms, built-in sofas and leaded windows.",
     "price": 340,
     "photo": {
       "src": "/images/categories/lake/03.png",
-      "alt": "A calm alpine lake reflecting forest and snow-capped peaks, with a white hotel on the far shore",
-      "title": "Sankt Moritz Lake Piz Muragl",
-      "creator": "Isiwal",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sankt_Moritz_Lake_Piz_Muragl.jpg",
+      "alt": "A long dark timber house with red tiled roofs and tall chimneys beside a gravel courtyard and lawn",
+      "title": "Hvitträsk Kirkkonummi",
+      "creator": "Mikkoau",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hvittr%C3%A4sk_Kirkkonummi.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/lake/03-a.png",
+        "alt": "The manor's timber upper floors and red roofs rising above a stone terrace hung with vines",
+        "title": "Hvittrask-3",
+        "creator": "Jiivonen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hvittrask-3.jpg",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      },
+      {
+        "src": "/images/categories/lake/03-b.png",
+        "alt": "A vaulted living room with painted arches, a long built-in sofa with blue cushions and leaded windows",
+        "title": "Photographs of Hvitträsk’s Interior - Dining Room",
+        "creator": "Markku Haverinen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Photographs_of_Hvittr%C3%A4sk%E2%80%99s_Interior_-_Dining_Room.jpg",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+      }
+    ]
   },
   {
     "title": "Lake",
@@ -61,93 +121,213 @@
   },
   {
     "title": "Mountain",
-    "location": "Mittelberg, Kleinwalsertal, Austria",
-    "description": "Snowed-in hut at the head of a quiet alpine valley. Cross-country ski trails start at the door.",
+    "location": "Kramsach, Tyrol, Austria",
+    "description": "Old Tyrolean timber farmhouse with long wooden balconies, set on a green slope below forested mountains. Panelled parlour with benches around a table.",
     "price": 140,
     "photo": {
       "src": "/images/categories/mountain/01.png",
-      "alt": "A small wooden hut in a snowy valley below forested mountains, with sunlight streaming over a ridge",
-      "title": "Mittelberg Landscape (Unsplash)",
-      "creator": "Mike Kotsch mike",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mittelberg_Landscape_(Unsplash).jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A large timber farmhouse with long wooden balconies on a green hillside below forested mountains",
+      "title": "Hof Gwiggen",
+      "creator": "Jörg Stoffel",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Gwiggen.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/mountain/01-a.png",
+        "alt": "The farmhouse's weathered timber front with carved balconies above a stone base",
+        "title": "BHM Kramsach Gwiggenhof 2",
+        "creator": "Ricardalovesmonuments",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:BHM_Kramsach_Gwiggenhof_2.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/mountain/01-b.png",
+        "alt": "A dark timber parlour with benches along the walls, a wooden table and small windows",
+        "title": "BHM Kramsach Gwiggenhof Interior 1",
+        "creator": "Ricardalovesmonuments",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:BHM_Kramsach_Gwiggenhof_Interior_1.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Mountain",
-    "location": "West Glacier, Montana, USA",
-    "description": "Log cabin in a golden meadow below the peaks of Glacier National Park. Big skies, wildlife and hiking nearby.",
+    "location": "Kramsach, Tyrol, Austria",
+    "description": "Tall timber farmhouse with balconies across its gable, at the edge of the forest in the Tyrolean Alps. Traditional kitchen with an open hearth.",
     "price": 190,
     "photo": {
       "src": "/images/categories/mountain/02.png",
-      "alt": "A log cabin with an orange roof in a golden meadow, with autumn trees and snowy peaks behind",
-      "title": "Quiet cabin in the mountains (Unsplash)",
-      "creator": "Ravi Pinisetti ravipinisetti",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Quiet_cabin_in_the_mountains_(Unsplash).jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A tall timber farmhouse with balconies across its gable end, above a sloping lawn",
+      "title": "Hof Hackler - Front",
+      "creator": "Jörg Stoffel",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Hackler_-_Front.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/mountain/02-a.png",
+        "alt": "The farmhouse's long side with stacked timber balconies, among trees beside a fenced path",
+        "title": "Hof Hackler - Seitenansicht",
+        "creator": "Jörg Stoffel",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Hackler_-_Seitenansicht.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/mountain/02-b.png",
+        "alt": "An old farmhouse kitchen with an open stone hearth, a hanging pot, benches and a table",
+        "title": "Hof Hackler - Küche",
+        "creator": "Jörg Stoffel",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Hackler_-_K%C3%BCche.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Mountain",
-    "location": "Pin Valley, Himachal Pradesh, India",
-    "description": "Simple guesthouse room in a high Himalayan valley of colourful, layered mountainsides. For trekkers who want quiet and big views.",
+    "location": "Kramsach, Tyrol, Austria",
+    "description": "Whitewashed Tyrolean farmhouse with a timber upper floor and wide balconies, on a meadow below the mountains. Bright parlour with a corner table.",
     "price": 60,
     "photo": {
       "src": "/images/categories/mountain/03.png",
-      "alt": "Steep, banded mountain slopes of purple and ochre rock above a narrow valley floor",
-      "title": "Right Bank Pin Mudh Spiti Himachal Jun18 D72 7114",
-      "creator": "This Photo was taken by Timothy A. Gonsalves. Feel free to use my photos, but please mention me as the author. I would much appreciate if you send me an email tagooty@yahoo.com or write on my talk page, for my information. Please contact me before commercial use. Please do not upload an edited image here without consulting me. I would like to make corrections only at my own source to ensure that the changes improve the image and are preserved.Otherwise you may upload an edited image with a new name. Please use one of the templates derivative or extract.",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Right_Bank_Pin_Mudh_Spiti_Himachal_Jun18_D72_7114.jpg",
+      "alt": "A Tyrolean farmhouse with a white stone ground floor, timber upper floors and long balconies",
+      "title": "Hof Hörl-Wetscher",
+      "creator": "Jörg Stoffel",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_H%C3%B6rl-Wetscher.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/mountain/03-a.png",
+        "alt": "The back of the farmhouse with a big timber barn above a stone wall",
+        "title": "Hof Hörl-Wetscher - Rückseite",
+        "creator": "Jörg Stoffel",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_H%C3%B6rl-Wetscher_-_R%C3%BCckseite.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/mountain/03-b.png",
+        "alt": "A bright whitewashed parlour with a wooden corner bench, a table and small windows",
+        "title": "Hof Hörl-Wetscher - Stube",
+        "creator": "Jörg Stoffel",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_H%C3%B6rl-Wetscher_-_Stube.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Mountain",
-    "location": "Krasnaya Polyana, Sochi, Russia",
-    "description": "Log chalet in the mountain village below Psekhako Ridge, deep in snow all winter.",
+    "location": "Wasserauen, Appenzell, Switzerland",
+    "description": "Historic timber mountain inn tucked under a vast rock face high in the Alpstein, with grazing pastures below and simple wood-panelled rooms.",
     "price": 170,
     "photo": {
       "src": "/images/categories/mountain/04.png",
-      "alt": "A log chalet with a thick layer of snow on its roof",
-      "title": "Mountain Ridge in the Olympic village Psekhako 1",
-      "creator": "Александр Вайнер",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mountain_Ridge_in_the_Olympic_village_Psekhako_1.JPG",
+      "alt": "A timber mountain inn built against a sheer rock face above a steep green pasture, in mist",
+      "title": "Rustic Getaways (Unsplash)",
+      "creator": "Niklas Tidbury ntidbury",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rustic_Getaways_(Unsplash).jpg",
       "license": "CC0",
       "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/mountain/04-a.png",
+        "alt": "The mountain inn small beneath an enormous overhanging cliff, above green slopes and forest",
+        "title": "An steiler Wand; Gasthaus Aescher (-Wildkirchli)",
+        "creator": "JoachimKohler-HB",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:An_steiler_Wand;_Gasthaus_Aescher_(-Wildkirchli).jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/mountain/04-b.png",
+        "alt": "A narrow wood-panelled room with built-in cupboards and a bench against the natural rock wall",
+        "title": "Berggasthaus Äscher 2023 (2)",
+        "creator": "Benreis",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Berggasthaus_%C3%84scher_2023_(2).jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Urban",
-    "location": "Ho Chi Minh City, Vietnam",
-    "description": "Rooftop apartment with sunset views over the city and the spire of Huyen Sy Church.",
+    "location": "Jodenbreestraat, Amsterdam, Netherlands",
+    "description": "Seventeenth-century brick townhouse with green shutters in central Amsterdam, a short walk from the canals, Waterlooplein market and the old Jewish quarter. Panelled rooms and a traditional box bed.",
     "price": 70,
     "photo": {
       "src": "/images/categories/urban/01.png",
-      "alt": "City rooftops and a church spire in warm sunset haze",
-      "title": "Rooftops by Igor Ovsyannykov",
-      "creator": "Igor Ovsyannykov",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rooftops_by_Igor_Ovsyannykov.jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "The red-brick facade of a tall 17th-century Amsterdam townhouse with green shutters and a classical pediment",
+      "title": "Rembrandt house - amsterdam nl",
+      "creator": "Phyzome",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rembrandt_house_-_amsterdam_nl.jpg",
+      "license": "Public domain",
+      "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/urban/01-a.png",
+        "alt": "The townhouse's brick front and green shutters seen from the street",
+        "title": "La maison de Rembrandt",
+        "creator": "Emico",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:La_maison_de_Rembrandt.JPG",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      },
+      {
+        "src": "/images/categories/urban/01-b.png",
+        "alt": "A dark wooden panelled box bed with white pillows set into the wall of a room",
+        "title": "2019-06-22 Rembrandthuis 03",
+        "creator": "Szilas",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:2019-06-22_Rembrandthuis_03.jpg",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+      }
+    ]
   },
   {
     "title": "Urban",
-    "location": "Copenhagen, Denmark",
-    "description": "Central flat with views over the spires and copper roofs of the old city. Walk or cycle everywhere.",
+    "location": "NoHo, Manhattan, New York City, USA",
+    "description": "Federal-style red-brick row house from 1832 in lower Manhattan, with black shutters, an iron-railed stoop and a period kitchen with an open hearth.",
     "price": 190,
     "photo": {
       "src": "/images/categories/urban/02.png",
-      "alt": "A city of spires, towers and pitched roofs seen from above under a wide blue sky",
-      "title": "Kopenhagen (DK), Blick vom Runden Turm -- 2017 -- 1619",
-      "creator": "Dietmar Rabich",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kopenhagen_(DK),_Blick_vom_Runden_Turm_--_2017_--_1619.jpg",
+      "alt": "The red-brick front of a 19th-century New York row house with black shutters, seen from below",
+      "title": "NoHo Jun 2023 223",
+      "creator": "Epicgenius",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:NoHo_Jun_2023_223.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/urban/02-a.png",
+        "alt": "The row house's brick front, black shutters and arched doorway behind ornate iron railings",
+        "title": "Merchant's House Museum side view",
+        "creator": "Beyond My Ken",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Merchant%27s_House_Museum_side_view.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/urban/02-b.png",
+        "alt": "A period kitchen with an iron range in a brick hearth, a wooden dresser of plates and a Windsor chair",
+        "title": "Merchant's House Museum Jan 2026 03",
+        "creator": "Epicgenius",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Merchant%27s_House_Museum_Jan_2026_03.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Urban",
@@ -207,7 +387,27 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diamonds_Thudufushi_Beach_and_Water_Villas,_May_2017_-01.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/beach/02-a.png",
+        "alt": "A row of white overwater villas on stilts along a curving wooden walkway above a turquoise lagoon",
+        "title": "Diamonds Thudufushi Beach and Water Villas, May 2017 -03",
+        "creator": "Martin Falbisoner",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diamonds_Thudufushi_Beach_and_Water_Villas,_May_2017_-03.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/beach/02-b.png",
+        "alt": "A wooden walkway between white overwater villas at dusk, under a pastel sky",
+        "title": "Diamonds Thudufushi Beach and Water Villas, May 2017 -14",
+        "creator": "Martin Falbisoner",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diamonds_Thudufushi_Beach_and_Water_Villas,_May_2017_-14.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Beach",
@@ -222,7 +422,27 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diamonds_Thudufushi_Beach_and_Water_Villas,_May_2017_-09.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/beach/03-a.png",
+        "alt": "A long wooden jetty crossing a turquoise lagoon to a small palm-covered island with red-roofed buildings",
+        "title": "Diamonds Thudufushi Beach and Water Villas, May 2017 -08",
+        "creator": "Martin Falbisoner",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diamonds_Thudufushi_Beach_and_Water_Villas,_May_2017_-08.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/beach/03-b.png",
+        "alt": "A rope hammock strung between leaning palm trees on a white sand beach by turquoise water",
+        "title": "Diamonds Thudufushi Beach and Water Villas, May 2017 -07",
+        "creator": "Martin Falbisoner",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diamonds_Thudufushi_Beach_and_Water_Villas,_May_2017_-07.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Beach",
@@ -237,22 +457,62 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_house_with_a_small_beach_in_Norra_Grundsund_1.jpg",
       "license": "CC0",
       "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/beach/04-a.png",
+        "alt": "A white wooden house with a red roof on a rocky shore, seen across calm water",
+        "title": "White house with a small beach in Norra Grundsund 2",
+        "creator": "W.carter",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_house_with_a_small_beach_in_Norra_Grundsund_2.jpg",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+      },
+      {
+        "src": "/images/categories/beach/04-b.png",
+        "alt": "The white house at the end of a rocky inlet, with neighbouring houses along the shore",
+        "title": "White house with a small beach in Norra Grundsund 4",
+        "creator": "W.carter",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_house_with_a_small_beach_in_Norra_Grundsund_4.jpg",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+      }
+    ]
   },
   {
     "title": "Vineyard",
-    "location": "South Styria, Austria",
-    "description": "Guesthouse on the rolling vineyard hills of the South Styrian wine road.",
+    "location": "Vougeot, Côte de Nuits, Burgundy, France",
+    "description": "Renaissance stone château in the middle of the Clos de Vougeot vineyard, with corner towers, a gravel courtyard and a vaulted old kitchen with a great hearth.",
     "price": 125,
     "photo": {
       "src": "/images/categories/vineyard/01.png",
-      "alt": "Rolling hills of vineyard rows with red-roofed farmhouses",
-      "title": "Ausblick auf die Südsteiermark",
-      "creator": "A,Ocram",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ausblick_auf_die_S%C3%BCdsteiermark.jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A pale stone Renaissance château with pointed corner towers and an arched gateway beside the vines",
+      "title": "Château vougeot",
+      "creator": "Urban",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_vougeot.jpg",
+      "license": "Public domain",
+      "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/vineyard/01-a.png",
+        "alt": "The château's stone courtyard with mullioned windows, old outbuildings and a wooden cart",
+        "title": "Cour clos de Vougeot",
+        "creator": "Jebulon",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cour_clos_de_Vougeot.jpg",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      },
+      {
+        "src": "/images/categories/vineyard/01-b.png",
+        "alt": "A vaulted stone kitchen with a huge open hearth and a long wooden table set with pots",
+        "title": "Ancienne cuisine du Château du Clos de Vougeot",
+        "creator": "Margot1934",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ancienne_cuisine_du_Ch%C3%A2teau_du_Clos_de_Vougeot.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Vineyard",
@@ -297,7 +557,18 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mazet_in_vineyards,_M%C3%A8ze_cf02.jpg",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/vineyard/04-a.png",
+        "alt": "A small stone vineyard cottage under two plane trees among the vines near Mèze",
+        "title": "Mazet in vineyards, Mèze cf01",
+        "creator": "Christian Ferrer",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mazet_in_vineyards,_M%C3%A8ze_cf01.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Desert",
@@ -361,33 +632,73 @@
   },
   {
     "title": "Tropical",
-    "location": "Koh Mak, Trat, Thailand",
-    "description": "Beach bungalow under leaning coconut palms on a quiet island in the Gulf of Thailand.",
+    "location": "Old Town, Key West, Florida, USA",
+    "description": "Spanish Colonial stone villa with yellow shutters and wraparound iron balconies, set in a lush garden of palms in Key West's Old Town. Airy bedrooms with carved furniture.",
     "price": 85,
     "photo": {
       "src": "/images/categories/tropical/01.png",
-      "alt": "Coconut palms leaning over a sandy beach and calm shallow water",
-      "title": "Koh Mak (island), Thailand, Palm trees on the beach",
-      "creator": "Vyacheslav Argenberg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Koh_Mak_(island),_Thailand,_Palm_trees_on_the_beach.jpg",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
-    }
+      "alt": "A two-storey Spanish Colonial villa with yellow shutters and iron balconies behind tall palms and tropical plants",
+      "title": "Ernest Hemingway Home - Key West, FL",
+      "creator": "Upstateherd",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ernest_Hemingway_Home_-_Key_West,_FL.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/tropical/01-a.png",
+        "alt": "The villa's upper balconies seen through the trees and greenery of its tropical garden",
+        "title": "Ernest Hemingway Home - Key West, FL 2",
+        "creator": "Upstateherd",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ernest_Hemingway_Home_-_Key_West,_FL_2.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/tropical/01-b.png",
+        "alt": "A bedroom with a carved dark wooden headboard, a white bedspread and a brass lamp, with a cat asleep on the pillow",
+        "title": "Hemingway House bedroom and cat FL1",
+        "creator": "Acroterion",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hemingway_House_bedroom_and_cat_FL1.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Tropical",
-    "location": "Koh Mak, Trat, Thailand",
-    "description": "Palm-shaded hut right on the sand, with a rope swing and calm, shallow water in front.",
+    "location": "Coconut Grove, Miami, Florida, USA",
+    "description": "Italian Renaissance–style bayfront villa set among formal gardens, tropical hardwood forest and reflecting pools on Biscayne Bay. A carved-stone grotto pool lies beneath the house.",
     "price": 75,
     "photo": {
       "src": "/images/categories/tropical/02.png",
-      "alt": "A leaning palm tree with a rope swing over a quiet sandy beach",
-      "title": "Koh Mak (island), Thailand, Palms on the beach",
-      "creator": "Vyacheslav Argenberg",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Koh_Mak_(island),_Thailand,_Palms_on_the_beach.jpg",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
-    }
+      "alt": "A pale villa with a red tiled roof seen across a still reflecting pool lined with clipped trees",
+      "title": "Villa Vizcaya - IMG 8056",
+      "creator": "Daderot",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Villa_Vizcaya_-_IMG_8056.JPG",
+      "license": "Public domain",
+      "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/tropical/02-a.png",
+        "alt": "The villa at the end of a long garden pool flanked by tall hedges under a blue sky",
+        "title": "Garden of Vizcaya",
+        "creator": "Msaadsadiq",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Garden_of_Vizcaya.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/tropical/02-b.png",
+        "alt": "A carved-stone grotto swimming pool with arched alcoves, stone steps and iron railings beneath the villa",
+        "title": "I Villa Vizcaya, Miami, FL, USA (2)",
+        "creator": "Elisa.rolle",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:I_Villa_Vizcaya,_Miami,_FL,_USA_(2).jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Tropical",
@@ -421,33 +732,73 @@
   },
   {
     "title": "Historic",
-    "location": "South Queensferry, West Lothian, Scotland",
-    "description": "Estate cottage near Hopetoun House, an 18th-century stately home with parkland and Firth of Forth views. The pictured house is not the rental.",
+    "location": "Wierschem, Rhineland-Palatinate, Germany",
+    "description": "Medieval hilltop castle of towers and half-timbered gables above the forested Elz valley, still owned by the same family after 850 years. Painted rooms with great stone fireplaces.",
     "price": 200,
     "photo": {
       "src": "/images/categories/historic/01.png",
-      "alt": "A grand stone palace with domed pavilions beyond a curving stone wall and a wide lawn",
-      "title": "Scotland-2016-West Lothian-Hopetoun House 02",
-      "creator": "Godot13",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scotland-2016-West_Lothian-Hopetoun_House_02.jpg",
+      "alt": "A medieval castle of tall towers and turrets on a rocky spur above green forest, framed by trees",
+      "title": "Burg-Eltz-msu-2021-1542-",
+      "creator": "Matthias Süßen",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Burg-Eltz-msu-2021-1542-.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/historic/01-a.png",
+        "alt": "An arched stone porch below white walls and half-timbered gables in the castle courtyard",
+        "title": "2019-Burg Eltz (20)",
+        "creator": "Dkvtig",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:2019-Burg_Eltz_(20).jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/historic/01-b.png",
+        "alt": "A room with walls painted in red and gold patterns, a tall stone fireplace and a bright window",
+        "title": "Allemagne07 08 0392 Burg Eltz",
+        "creator": "Daniel71953 [1]",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Allemagne07_08_0392_Burg_Eltz.JPG",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Historic",
-    "location": "Himeji, Hyōgo, Japan",
-    "description": "Traditional townhouse in the old castle town, a short walk from Himeji Castle. The pictured castle is not the rental.",
+    "location": "Kungsbacka, Halland, Sweden",
+    "description": "Tudor-style stone manor house from 1904 above the Kattegat coast, with lawns running down to the sea and a wood-panelled library lined with books.",
     "price": 150,
     "photo": {
       "src": "/images/categories/historic/02.png",
-      "alt": "A white multi-tiered Japanese castle on a stone base above green trees",
-      "title": "Himeji Castle 0804 1",
-      "creator": "Gorgo",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Himeji_Castle_0804_1.jpg",
+      "alt": "A large Tudor-style red stone manor house with tall chimneys and gables, across a frosty lawn",
+      "title": "Castle of Tjolöholm, frontside",
+      "creator": "Magnus Bäck",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Castle_of_Tjol%C3%B6holm,_frontside.jpg",
       "license": "Public domain",
-      "licenseUrl": "https://commons.wikimedia.org/wiki/File:Himeji_Castle_0804_1.jpg"
-    }
+      "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/historic/02-a.png",
+        "alt": "A gabled stone wing and half-timbered porch beside a paved garden at the manor",
+        "title": "Castle of Tjolöholm, annex",
+        "creator": "Magnus Bäck",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Castle_of_Tjol%C3%B6holm,_annex.jpg",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      },
+      {
+        "src": "/images/categories/historic/02-b.png",
+        "alt": "A wood-panelled library lined with bookshelves, with costume mannequins on display",
+        "title": "Downton Abbey costumes at Tjolöholms Slott, Sweden 01",
+        "creator": "Toxophilus",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downton_Abbey_costumes_at_Tjol%C3%B6holms_Slott,_Sweden_01.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Historic",
@@ -462,7 +813,27 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bodiam_Castle,_south_east_corner.jpg",
       "license": "CC0",
       "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/historic/03-a.png",
+        "alt": "A medieval stone castle with round corner towers surrounded by a wide moat, under a cloudy blue sky",
+        "title": "20160626T131143IMG 3731-HDR",
+        "creator": "Adam Kumiszcza",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:20160626T131143IMG_3731-HDR.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/historic/03-b.png",
+        "alt": "Battlemented stone towers and walls inside a medieval castle, against a deep blue sky",
+        "title": "1044134 I BODIAM CASTLE Bodiam 20250909 0011",
+        "creator": "Tilman2007",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:1044134_I_BODIAM_CASTLE_Bodiam_20250909_0011.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Historic",
@@ -477,7 +848,27 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Carisbrooke_Castle_gatehouse.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/historic/04-a.png",
+        "alt": "A medieval castle gatehouse and curtain walls on a grassy mound, with snow on the ground",
+        "title": "Carisbrooke Castle, Isle of Wight, England",
+        "creator": "ITookSomePhotos",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Carisbrooke_Castle,_Isle_of_Wight,_England.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/historic/04-b.png",
+        "alt": "Long stone castle walls along the top of a steep grassy earthwork",
+        "title": "Carisbrooke Castle, Castle Hill, Carisbrooke (NHLE Code 1034657) (May 2016) (2)",
+        "creator": "User:Hassocks5489",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Carisbrooke_Castle,_Castle_Hill,_Carisbrooke_(NHLE_Code_1034657)_(May_2016)_(2).jpg",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+      }
+    ]
   },
   {
     "title": "Forest",
@@ -507,7 +898,27 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Gaisr%C3%BCckenstra%C3%9Fe_Am_K%C3%A5te_Streuobstwiese_D%C3%B6rrkasten_25122017_2170.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/forest/02-a.png",
+        "alt": "A small old wooden hut in a winter orchard meadow with patches of snow, below a pine forest",
+        "title": "Pörtschach Winklern Gaisrückenstrasse Am Kåte Streuobstwiese Dörrkasten 19022017 6311",
+        "creator": "Johann Jaritz",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Gaisr%C3%BCckenstrasse_Am_K%C3%A5te_Streuobstwiese_D%C3%B6rrkasten_19022017_6311.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/forest/02-b.png",
+        "alt": "Close view of a weathered log hut with a mossy roof between bare fruit trees, with snow on the ground",
+        "title": "Pörtschach Winklern Gaisrückenstrasse Am Kåte Streuobstwiese Dörrkasten 19022017 6314",
+        "creator": "Johann Jaritz",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Gaisr%C3%BCckenstrasse_Am_K%C3%A5te_Streuobstwiese_D%C3%B6rrkasten_19022017_6314.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Forest",
@@ -522,7 +933,27 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Quellweg_altes_Bienenhaus_OSO-Ansicht_30032019_6259.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/forest/03-a.png",
+        "alt": "A green wooden bench against the yellow and brown plank wall of a small hut, in the sun",
+        "title": "Pörtschach Winklern Quellweg altes Bienenhaus Sitzbank 18032015 0886",
+        "creator": "Johann Jaritz",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Quellweg_altes_Bienenhaus_Sitzbank_18032015_0886.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/forest/03-b.png",
+        "alt": "A small brown and yellow wooden hut beside a woodland path among tall bare trees",
+        "title": "Pörtschach Winklern Quellweg altes Bienenhaus Ost-Ansicht 22032020 8549",
+        "creator": "Johann Jaritz",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Quellweg_altes_Bienenhaus_Ost-Ansicht_22032020_8549.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Forest",
@@ -537,22 +968,62 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Gaisr%C3%BCckenstrasse_Am_K%C3%A5te_Streuobstwiese_D%C3%B6rrkasten_25082019_7043.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/forest/04-a.png",
+        "alt": "A small log hut with a mossy roof among fruit trees in long green summer grass",
+        "title": "Pörtschach Winklern Gaisrückenstrasse Am Kåte Streuobstwiese Dörrkasten 25082019 7045",
+        "creator": "Johann Jaritz",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Gaisr%C3%BCckenstrasse_Am_K%C3%A5te_Streuobstwiese_D%C3%B6rrkasten_25082019_7045.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/forest/04-b.png",
+        "alt": "A small wooden hut under fruit trees in a green meadow beside a gravel path, with forest behind",
+        "title": "Pörtschach Winklern Gaisrückenstrasse Am Kåte Streuobstwiese Dörrkasten 25082019 7046",
+        "creator": "Johann Jaritz",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_Winklern_Gaisr%C3%BCckenstrasse_Am_K%C3%A5te_Streuobstwiese_D%C3%B6rrkasten_25082019_7046.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Farmhouse",
-    "location": "Ljungdalen, Jämtland, Sweden",
-    "description": "Two-storey timber farmhouse in the northern fells. Snowy winters, endless summer light.",
+    "location": "Vallsta, Hälsingland, Sweden",
+    "description": "Decorated Hälsingland farmstead of red timber buildings around a courtyard, among open fields. A World Heritage farm with painted rooms and a long table by the open fire.",
     "price": 110,
     "photo": {
       "src": "/images/categories/farmhouse/01.png",
-      "alt": "A tall weathered grey wooden farmhouse on a snowy rise at sunset",
-      "title": "Ljungdalen December 2016 04",
-      "creator": "Arild Vågen",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ljungdalen_December_2016_04.jpg",
+      "alt": "Aerial view of a red timber farmstead with buildings around a courtyard, set in green fields",
+      "title": "Gästgivars 2",
+      "creator": "L.G.foto",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:G%C3%A4stgivars_2.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/farmhouse/01-a.png",
+        "alt": "The farmstead's red timber buildings and courtyard among birch trees beside the road",
+        "title": "Gästgivars 1",
+        "creator": "L.G.foto",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:G%C3%A4stgivars_1.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/farmhouse/01-b.png",
+        "alt": "The farmhouse hall with a long wooden table, an open fireplace and patterned wallpaper",
+        "title": "Gästgivars undervåning 2019",
+        "creator": "Sara Mörtsell",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:G%C3%A4stgivars_underv%C3%A5ning_2019.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Farmhouse",
@@ -567,22 +1038,62 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karakteristieke_boerderij,_Aldlansdyk_in_Cornjum_02.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/farmhouse/02-a.png",
+        "alt": "A large farmhouse with a steep thatched roof among tall bare trees, across flat green fields",
+        "title": "Karakteristieke boerderij, Aldlansdyk in Cornjum 01",
+        "creator": "Dominicus Johannes Bergsma",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karakteristieke_boerderij,_Aldlansdyk_in_Cornjum_01.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/farmhouse/02-b.png",
+        "alt": "A brick farmhouse with a steep thatched roof beside a ditch in green pasture, under a grey sky",
+        "title": "Karakteristieke boerderij, Aldlansdyk in Cornjum 03",
+        "creator": "Dominicus Johannes Bergsma",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karakteristieke_boerderij,_Aldlansdyk_in_Cornjum_03.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Farmhouse",
-    "location": "Reedy Creek, South Australia",
-    "description": "Simple stone farm cottage in open grain fields, with huge skies and long sunsets.",
+    "location": "Långhed, Hälsingland, Sweden",
+    "description": "Two-storey red farmhouse with white trim on a World Heritage farm, with painted rooms full of 19th-century wall art. Snowy winters, green summers.",
     "price": 85,
     "photo": {
       "src": "/images/categories/farmhouse/03.png",
-      "alt": "A small stone farmhouse with a rusty tin roof in a field of tall grass",
-      "title": "Disused historic farmhouse in rural South Australia",
-      "creator": "Hallo3800",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Disused_historic_farmhouse_in_rural_South_Australia.jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A large red two-storey farmhouse with white window frames and a pedimented porch, in snow",
+      "title": "Jon-Lars exteriör",
+      "creator": "Sanna.lonngren",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jon-Lars_exteri%C3%B6r.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/farmhouse/03-a.png",
+        "alt": "The red farmhouse at the end of a gravel path through a green summer garden",
+        "title": "0471Hälsingegård Jon Lars",
+        "creator": "L.G.foto",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:0471H%C3%A4lsingeg%C3%A5rd_Jon_Lars.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/farmhouse/03-b.png",
+        "alt": "A bedroom with a white bed and walls painted with blue landscapes and trees",
+        "title": "Jon-Lars1",
+        "creator": "Sanna.lonngren",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jon-Lars1.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Farmhouse",
@@ -597,52 +1108,132 @@
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ol-Ers_July_2014.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/farmhouse/04-a.png",
+        "alt": "The front of a red two-storey farmhouse with white-framed windows, a double door and stone steps",
+        "title": "Ol-Ers July 2014 01",
+        "creator": "Arild Vågen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ol-Ers_July_2014_01.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/farmhouse/04-b.png",
+        "alt": "The end wall of a red farmhouse beside a dark red log barn on a stone base, on a green lawn",
+        "title": "Ol-Ers July 2014 02",
+        "creator": "Arild Vågen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ol-Ers_July_2014_02.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Ski",
-    "location": "Alpe d’Huez, Isère, France",
-    "description": "Ski-in apartment near the Sarenne slopes, with off-piste rock faces and big alpine views.",
+    "location": "Kramsach, Tyrol, Austria",
+    "description": "Painted Tyrolean farmhouse with a whitewashed front and red window surrounds, a short drive from the Alpbachtal ski area. Cosy timber parlour.",
     "price": 230,
     "photo": {
       "src": "/images/categories/ski/01.png",
-      "alt": "Skiers on a snowy slope below a rocky snow-covered peak",
-      "title": "Rock on the north side of Sommet Nord de Sarenne, Le Freney-d'Oisans, 2026",
-      "creator": "DimiTalen",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rock_on_the_north_side_of_Sommet_Nord_de_Sarenne,_Le_Freney-d%27Oisans,_2026.jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "The whitewashed front of a Tyrolean farmhouse with red-painted window surrounds and a painted figure",
+      "title": "Hof Falkner-Schnaitter - Front",
+      "creator": "Jörg Stoffel",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Falkner-Schnaitter_-_Front.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/ski/01-a.png",
+        "alt": "A painted figure and red window surrounds on the farmhouse's whitewashed front wall",
+        "title": "Hof Falkner-Schnaitter Front Detail",
+        "creator": "Jörg Stoffel",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Falkner-Schnaitter_Front_Detail.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/ski/01-b.png",
+        "alt": "A timber-ceilinged parlour with wooden benches, a table and small windows",
+        "title": "Hof Falkner-Schnaitter Stube",
+        "creator": "Jörg Stoffel",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hof_Falkner-Schnaitter_Stube.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Ski",
-    "location": "Peisey-Vallandry, Savoie, France",
-    "description": "Ski-in studio beside the Derby chairlift, on the larch-lined slopes of Paradiski.",
+    "location": "Samedan, Engadin, Switzerland",
+    "description": "Grand 16th-century Engadin house on the village square, a short ride from the Corviglia and Corvatsch ski areas. Panelled hall with a carved coffered ceiling and painted cupboards.",
     "price": 190,
     "photo": {
       "src": "/images/categories/ski/02.png",
-      "alt": "A chairlift running above a snowy piste lined with larch trees",
-      "title": "Ski lift Derby crosses Bosses slope, Peisey-Vallandry, 2020",
-      "creator": "DimiTalen",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ski_lift_Derby_crosses_Bosses_slope,_Peisey-Vallandry,_2020.jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A large white Engadin house with green shutters, a steep roof and two arched doorways on a village square",
+      "title": "Chesa Planta Samedan in September 2023",
+      "creator": "Zwantzig",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chesa_Planta_Samedan_in_September_2023.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/ski/02-a.png",
+        "alt": "A historic black-and-white photo of the house in deep winter snow below the mountains",
+        "title": "CH-NB - Schweiz, Samedan- Haus - Annemarie Schwarzenbach - SLA-Schwarzenbach-A-5-08-126",
+        "creator": "Annemarie Schwarzenbach",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:CH-NB_-_Schweiz,_Samedan-_Haus_-_Annemarie_Schwarzenbach_-_SLA-Schwarzenbach-A-5-08-126.jpg",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      },
+      {
+        "src": "/images/categories/ski/02-b.png",
+        "alt": "A long panelled hall with a carved coffered wooden ceiling, painted blue cupboards and antique chests",
+        "title": "10 Plantahaus Samedan 1589",
+        "creator": "Paebi",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:10_Plantahaus_Samedan_1589.JPG",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Ski",
-    "location": "Huez, Isère, France",
-    "description": "Slope-side studio at Grande Sure, looking down the Eau d’Olle valley to the snowy Belledonne range.",
+    "location": "St. Moritz, Engadin, Switzerland",
+    "description": "Traditional Engadin house with arched loggias and sgraffito corners on a slope above St. Moritz, close to the Corviglia lifts. Panelled stube with built-in cupboards and a beamed ceiling.",
     "price": 210,
     "photo": {
       "src": "/images/categories/ski/03.png",
-      "alt": "A snowy ski slope above a deep valley with a reservoir and snow-capped peaks",
-      "title": "View of the Eau d'Olle Valley from Grande Sure, Huez, 2026",
-      "creator": "DimiTalen",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_the_Eau_d%27Olle_Valley_from_Grande_Sure,_Huez,_2026.jpg",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
-    }
+      "alt": "A tall Engadin house with arched loggias, flower boxes and decorated corners on a green slope",
+      "title": "St. Moritz Engadinermuseum 02",
+      "creator": "Paebi",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:St._Moritz_Engadinermuseum_02.JPG",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/ski/03-a.png",
+        "alt": "The house's pale front with arched loggias, small deep-set windows and sgraffito corner patterns",
+        "title": "St. Moritz Engadinermuseum",
+        "creator": "Paebi",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:St._Moritz_Engadinermuseum.JPG",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/ski/03-b.png",
+        "alt": "A historic black-and-white photo of a panelled room with built-in cupboards, a beamed ceiling and spinning wheels",
+        "title": "060 Brail (Unterengadin). — Spinnstube von 1580",
+        "creator": "Scan and postprocessing by Hubertl",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:060_Brail_(Unterengadin)._%E2%80%94_Spinnstube_von_1580.jpg",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain"
+      }
+    ]
   },
   {
     "title": "Ski",
@@ -661,48 +1252,108 @@
   },
   {
     "title": "Island",
-    "location": "Fraueninsel, Chiemsee, Bavaria, Germany",
-    "description": "Guest room on a car-free island of fishermen’s houses and a historic abbey, reached by boat.",
+    "location": "Kizhi Island, Lake Onega, Karelia, Russia",
+    "description": "Large 19th-century log farmhouse on a car-free island in Lake Onega, with carved balconies, a broad gable and a whitewashed Russian stove inside.",
     "price": 160,
     "photo": {
       "src": "/images/categories/island/01.png",
-      "alt": "Aerial view of a small wooded island with a village and an abbey in a blue lake",
-      "title": "Aerial image of the Fraueninsel",
-      "creator": "Carsten Steger",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Fraueninsel.jpg",
+      "alt": "A large weathered log farmhouse with a carved balcony and broad gable on a grassy island meadow",
+      "title": "Kizhi (3)",
+      "creator": "Evatutin",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kizhi_(3).JPG",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/island/01-a.png",
+        "alt": "The farmhouse's log walls, shuttered windows and long carved-wood balcony",
+        "title": "Kizhi (5)",
+        "creator": "Evatutin",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kizhi_(5).JPG",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/island/01-b.png",
+        "alt": "A whitewashed Russian stove beneath a log wall hung with bunches of drying herbs",
+        "title": "Kizhi (10)",
+        "creator": "Evatutin",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kizhi_(10).JPG",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Island",
-    "location": "Alicudi, Aeolian Islands, Italy",
-    "description": "Terraced house on a volcanic island without roads; luggage still arrives by mule.",
+    "location": "Kizhi Island, Lake Onega, Karelia, Russia",
+    "description": "Weathered 19th-century log house brought to Kizhi island from a nearby village, with carved window frames, an outside stair and a simple bedroom under log walls.",
     "price": 120,
     "photo": {
       "src": "/images/categories/island/02.png",
-      "alt": "Aerial view of a cone-shaped volcanic island with terraces in a deep blue sea",
-      "title": "Aerial image of Alicudi (view from the south)",
-      "creator": "Carsten Steger",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aerial_image_of_Alicudi_(view_from_the_south).jpg",
+      "alt": "A large grey log house with two gables, an outside wooden stair and a lean-to roof on a green slope",
+      "title": "Дом Елизарова из деревни Середка; Кижи",
+      "creator": "Kemal KOZBAEV",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%94%D0%BE%D0%BC_%D0%95%D0%BB%D0%B8%D0%B7%D0%B0%D1%80%D0%BE%D0%B2%D0%B0_%D0%B8%D0%B7_%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BD%D0%B8_%D0%A1%D0%B5%D1%80%D0%B5%D0%B4%D0%BA%D0%B0;_%D0%9A%D0%B8%D0%B6%D0%B8.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/island/02-a.png",
+        "alt": "Carved window frames set into the house's weathered grey log wall, beside a wooden stair rail",
+        "title": "DSC06534 2021 Кижи, Дом Елизарова из деревни Середка",
+        "creator": "Reshinna",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:DSC06534_2021_%D0%9A%D0%B8%D0%B6%D0%B8,_%D0%94%D0%BE%D0%BC_%D0%95%D0%BB%D0%B8%D0%B7%D0%B0%D1%80%D0%BE%D0%B2%D0%B0_%D0%B8%D0%B7_%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BD%D0%B8_%D0%A1%D0%B5%D1%80%D0%B5%D0%B4%D0%BA%D0%B0.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/island/02-b.png",
+        "alt": "A simple bedroom with a wooden bed and red pillows against bare log walls",
+        "title": "Дом Елизарова DSCN2128",
+        "creator": "Kotjara kamenskaja",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%94%D0%BE%D0%BC_%D0%95%D0%BB%D0%B8%D0%B7%D0%B0%D1%80%D0%BE%D0%B2%D0%B0_DSCN2128.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Island",
-    "location": "Filicudi, Aeolian Islands, Italy",
-    "description": "Whitewashed island home with sea views over the Tyrrhenian, near a small fishing harbour.",
+    "location": "Bunge, Gotland, Sweden",
+    "description": "Eighteenth-century Gotland farmstead of red timber buildings around a green yard under old oaks, on the island's quiet northern tip. Whitewashed main room with a hearth and spinning wheel.",
     "price": 130,
     "photo": {
       "src": "/images/categories/island/03.png",
-      "alt": "Aerial view of a volcanic island with a long low headland in a calm blue sea",
-      "title": "Aerial image of Filicudi (view from the south)",
-      "creator": "Carsten Steger",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aerial_image_of_Filicudi_(view_from_the_south).jpg",
+      "alt": "Red timber farm buildings around a grassy yard shaded by a large oak, on Gotland",
+      "title": "Bungemuseet 1700-talsgården August 2020 04",
+      "creator": "Arild Vågen",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bungemuseet_1700-talsg%C3%A5rden_August_2020_04.jpg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-    }
+    },
+    "gallery": [
+      {
+        "src": "/images/categories/island/03-a.png",
+        "alt": "A long timber barn with a steep wooden roof beside the farmhouse, on green grass",
+        "title": "Bungemuseet 1700-talsgården August 2020 01",
+        "creator": "Arild Vågen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bungemuseet_1700-talsg%C3%A5rden_August_2020_01.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      {
+        "src": "/images/categories/island/03-b.png",
+        "alt": "A whitewashed farmhouse room with a wooden floor, an alcove bed, chairs and a spinning wheel",
+        "title": "Bungemuseet 1700-talsgården August 2020 03",
+        "creator": "Arild Vågen",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bungemuseet_1700-talsg%C3%A5rden_August_2020_03.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    ]
   },
   {
     "title": "Island",

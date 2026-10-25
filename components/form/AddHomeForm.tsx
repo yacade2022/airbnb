@@ -11,9 +11,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { SubmitButton } from '@/components/form/Button';
 import { FieldError, FormError } from '@/components/form/FieldError';
+import GalleryPhotoField from '@/components/form/GalleryPhotoField';
 import { addHomeToList, updateHome, type AddHomeField, type AddHomeState } from '@/utils/actions';
 import { categoryHouses } from '@/lib/categoryHouses';
-import { MAX_DESCRIPTION_LENGTH, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
+import { MAX_DESCRIPTION_LENGTH, MAX_GALLERY_PHOTOS, MAX_IMAGE_SIZE, MAX_LOCATION_LENGTH } from '@/lib/listingRules';
 import { cn } from '@/lib/utils';
 
 const initialState: AddHomeState = {};
@@ -23,7 +24,7 @@ const formatSize = (bytes: number) =>
 
 type AddHomeFormProps = {
   // Passing a home switches the form to editing it: fields start filled in and the photo is optional
-  home?: Pick<Home, 'id' | 'title' | 'location' | 'description' | 'price' | 'photo'>;
+  home?: Pick<Home, 'id' | 'title' | 'location' | 'description' | 'price' | 'photo' | 'gallery'>;
 };
 
 function AddHomeForm({ home }: AddHomeFormProps) {
@@ -38,6 +39,8 @@ function AddHomeForm({ home }: AddHomeFormProps) {
   const [descriptionLength, setDescriptionLength] = useState(home?.description.length ?? 0);
   const [preview, setPreview] = useState<{ url: string; name: string; size: number } | null>(null);
   const [imageError, setImageError] = useState<string>();
+  // Bumped after each submission to reset the gallery fields along with the form
+  const [submissions, setSubmissions] = useState(0);
 
   // After each submission: move focus to the field with the error, and sync local UI with the
   // form, which React resets once the action finishes (that also clears the chosen file)
@@ -45,6 +48,7 @@ function AddHomeForm({ home }: AddHomeFormProps) {
     setDescriptionLength(state.values?.description.length ?? 0);
     setPreview(null);
     setImageError(undefined);
+    setSubmissions((count) => count + 1);
     if (state.field) {
       const field = formRef.current?.elements.namedItem(state.field);
       if (field instanceof HTMLElement) field.focus();
@@ -84,7 +88,7 @@ function AddHomeForm({ home }: AddHomeFormProps) {
       {home && <input type="hidden" name="homeId" value={home.id} />}
       <FormError message={formError}>
         <span className="text-foreground">
-          Your details were kept{home ? '.' : '; please choose your photo again.'}
+          Your details were kept{home ? '.' : '; please choose your photos again.'}
         </span>
       </FormError>
       {/* Screen readers hear field errors when they appear; the field itself also gets focus */}
@@ -230,6 +234,24 @@ function AddHomeForm({ home }: AddHomeFormProps) {
           </label>
           <FieldError id="image-error" message={imageMessage} />
         </div>
+
+        <fieldset className="md:col-span-2">
+          <legend className="text-sm font-medium">More photos</legend>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Two more photos of this home, shown next to its description. Optional, JPG, PNG, WebP or AVIF, up to 4 MB each.
+          </p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {Array.from({ length: MAX_GALLERY_PHOTOS }, (_, slot) => (
+              <GalleryPhotoField
+                key={`${slot}-${submissions}`}
+                name={`gallery${slot}`}
+                label={`Photo ${slot + 2}`}
+                current={home?.gallery[slot]}
+                serverError={fieldError(`gallery${slot}`)}
+              />
+            ))}
+          </div>
+        </fieldset>
       </div>
 
       <div className="flex flex-col-reverse gap-3 border-t pt-6 sm:flex-row sm:justify-end">

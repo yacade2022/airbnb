@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { DEMO_PHOTO_PREFIX, demoListings, findDemoPhotoCredit } from './demoListings';
+import { DEMO_PHOTO_PREFIX, demoListings, demoPhotos, findDemoPhotoCredit } from './demoListings';
 import { CREDITS_PAGE_LICENSES, imageCredits } from './imageCredits';
 import { categoryHouses } from './categoryHouses';
-import { MAX_DESCRIPTION_LENGTH, MAX_LOCATION_LENGTH } from './listingRules';
+import { MAX_DESCRIPTION_LENGTH, MAX_GALLERY_PHOTOS, MAX_LOCATION_LENGTH } from './listingRules';
 
 const publicDir = fileURLToPath(new URL('../public', import.meta.url));
 
@@ -17,7 +17,8 @@ describe('demo listings', () => {
   });
 
   it('only uses photos that exist, once each', () => {
-    const srcs = demoListings.map((listing) => listing.photo.src);
+    // Covers and gallery photos together, so no photo shows up twice anywhere
+    const srcs = demoPhotos.map((photo) => photo.src);
     expect(new Set(srcs).size).toBe(srcs.length);
     for (const src of srcs) {
       expect(src.startsWith(DEMO_PHOTO_PREFIX)).toBe(true);
@@ -36,8 +37,14 @@ describe('demo listings', () => {
     }
   });
 
+  it('has at most MAX_GALLERY_PHOTOS gallery photos per listing', () => {
+    for (const { gallery = [] } of demoListings) {
+      expect(gallery.length).toBeLessThanOrEqual(MAX_GALLERY_PHOTOS);
+    }
+  });
+
   it('has a complete credit for every photo', () => {
-    for (const { photo } of demoListings) {
+    for (const photo of demoPhotos) {
       expect(photo.creator).toBeTruthy();
       expect(photo.alt).toBeTruthy();
       expect(photo.license).toMatch(/^(CC0|Public domain|CC BY(-SA)? \d\.\d)$/);
@@ -49,7 +56,7 @@ describe('demo listings', () => {
 
 describe('photo licenses', () => {
   // Photos are credited only on /credits, so each license must allow that (or need no credit)
-  const allPhotos = [...demoListings.map(({ photo }) => photo), ...Object.values(imageCredits)];
+  const allPhotos = [...demoPhotos, ...Object.values(imageCredits)];
 
   it.each(allPhotos.map((photo) => [photo.src, photo.license]))('%s (%s) can be credited on /credits only', (_src, license) => {
     expect(license).toMatch(CREDITS_PAGE_LICENSES);
