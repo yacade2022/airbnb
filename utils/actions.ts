@@ -365,6 +365,16 @@ export async function createReservation(
         checkOut: String(formData.get('checkOut') ?? ''),
         guests: String(formData.get('guests') ?? '').trim(),
     };
+
+    // Checked before anything else: only logged-in users can book. The return link carries the
+    // chosen dates and guests so the form is filled in again after logging in
+    if (!(await getCurrentUser())) {
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(values)) if (value) params.set(key, value);
+        const query = params.toString();
+        redirect(loginPath(`/homes/${encodeURIComponent(homeId)}${query ? `?${query}` : ''}`));
+    }
+
     const checkIn = parseDateInput(values.checkIn);
     const checkOut = parseDateInput(values.checkOut);
     const guests = Number(values.guests);

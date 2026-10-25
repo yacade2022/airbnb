@@ -12,11 +12,26 @@ import ReservationForm from '@/components/form/ReservationForm';
 import ListingActions from '@/components/home/ListingActions';
 import { findDemoPhotoCredit } from '@/lib/demoListings';
 import { canManageHome, getCurrentUser } from '@/lib/auth';
+import { MAX_GUESTS, parseDateInput } from '@/lib/reservationRules';
 
 type HomePageProps = {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ created?: string; updated?: string }>;
+  // checkIn, checkOut and guests come back from the login redirect when a logged-out visitor clicks Reserve
+  searchParams: Promise<{ created?: string; updated?: string; checkIn?: string; checkOut?: string; guests?: string }>;
 };
+
+// The booking form's starting values from the URL; anything invalid is dropped
+function initialReservationValues({ checkIn, checkOut, guests }: Awaited<HomePageProps['searchParams']>) {
+  if (!checkIn && !checkOut && !guests) return undefined;
+  const inDate = parseDateInput(checkIn);
+  const outDate = parseDateInput(checkOut);
+  const guestCount = Number(guests);
+  return {
+    checkIn: inDate ? checkIn! : '',
+    checkOut: inDate && outDate && outDate > inDate ? checkOut! : '',
+    guests: Number.isInteger(guestCount) && guestCount >= 1 && guestCount <= MAX_GUESTS ? String(guestCount) : '1',
+  };
+}
 
 // Shared by generateMetadata and the page so the home is only queried once per request
 const getHome = cache(fetchHomeById);
@@ -27,7 +42,8 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
 }
 
 async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
-  const [{ id }, { created, updated }] = await Promise.all([params, searchParams]);
+  const [{ id }, query] = await Promise.all([params, searchParams]);
+  const { created, updated } = query;
   const home = await getHome(id);
   if (!home) notFound();
   const [favoriteIds, bookedDates, user] = await Promise.all([
@@ -150,6 +166,8 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
               <ReservationForm
                 homeId={home.id}
                 price={home.price}
+                isLoggedIn={Boolean(user)}
+                initialValues={initialReservationValues(query)}
                 bookedStays={bookedDates.map((stay) => ({
                   checkIn: stay.checkIn.toISOString().slice(0, 10),
                   checkOut: stay.checkOut.toISOString().slice(0, 10),

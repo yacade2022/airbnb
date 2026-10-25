@@ -23,8 +23,6 @@ import {
 import { formatPrice, formatStayDate } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
-const initialState: ReservationState = {};
-
 // How far ahead the calendar lets visitors browse
 const BOOKING_WINDOW_MONTHS = 12;
 
@@ -47,10 +45,13 @@ type ReservationFormProps = {
   homeId: string;
   price: number;
   bookedStays: BookedStay[];
+  isLoggedIn: boolean;
+  // Dates and guests to start with, e.g. restored after logging in to book
+  initialValues?: ReservationState['values'];
 };
 
-function ReservationForm({ homeId, price, bookedStays }: ReservationFormProps) {
-  const [state, formAction] = useActionState(createReservation, initialState);
+function ReservationForm({ homeId, price, bookedStays, isLoggedIn, initialValues }: ReservationFormProps) {
+  const [state, formAction] = useActionState(createReservation, { values: initialValues });
   const calendarRef = useRef<HTMLDivElement>(null);
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
@@ -109,6 +110,8 @@ function ReservationForm({ homeId, price, bookedStays }: ReservationFormProps) {
 
   // Catches an incomplete range before it reaches the server, which still validates everything
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    // Logged-out visitors go straight to the server, which sends them to log in with their choices kept
+    if (!isLoggedIn) return;
     let error: typeof clientError;
     if (!checkIn) error = { error: 'Please choose a check-in date.', field: 'checkIn' };
     else if (!checkOut) error = { error: 'Please choose a check-out date.', field: 'checkOut' };
