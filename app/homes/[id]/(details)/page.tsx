@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
-import { ArrowLeft, CalendarDays, CircleCheck, Info, MapPin } from 'lucide-react';
+import { ArrowLeft, CalendarDays, CircleCheck, MapPin } from 'lucide-react';
 import { fetchBookedDates, fetchFavoriteIds, fetchHomeById } from '@/utils/actions';
 import { findCategoryByTitle } from '@/lib/categoryHouses';
 import { formatListedDate, formatPrice, formatStayDates } from '@/lib/format';
@@ -102,13 +102,6 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
           </span>
           {home.owner && <span>Hosted by {home.owner.name}</span>}
         </div>
-        {photoCredit && (
-          <p className="mt-4 flex items-start gap-3 rounded-xl border bg-muted/40 p-4 text-sm text-muted-foreground">
-            <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
-            Demo listing: sample data that shows how the site works. The photo is illustrative and isn&apos;t of a
-            real rental.
-          </p>
-        )}
       </header>
 
       {/* Mobile order: photo, price, description. On large screens the price card sits in a sticky right column */}

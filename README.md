@@ -36,8 +36,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ## Demo listings
 
 48 demo listings, 4 per category, use the openly licensed photos in `public/images/categories`
-(sources and licenses in `ATTRIBUTION.md` there). They're owned by the admin account and show a
-"Demo listing" note. Photos have no credit captions; every photo is credited on the Image credits
+(sources and licenses in `ATTRIBUTION.md` there). They're owned by the admin account. Photos have no credit captions; every photo is credited on the Image credits
 page (`/credits`), linked from the footer. Only CC BY 4.0, CC BY-SA 4.0, CC0 and public-domain
 photos may be used, since those licenses allow that (the tests check this).
 
