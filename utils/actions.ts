@@ -215,7 +215,7 @@ export async function deleteHome(homeId: string, returnTo?: string) {
     if (returnTo) redirect(safeNextPath(returnTo));
 }
 
-export const fetchAllHome = async (category?: string, search?: string) => {
+export const fetchAllHome = async (category?: string, search?: string, dates?: { checkIn: Date; checkOut: Date }) => {
     const query = search?.trim();
     const where = {
         // Home.title stores the category title chosen in the add-home form
@@ -225,6 +225,10 @@ export const fetchAllHome = async (category?: string, search?: string) => {
                 { location: { contains: query, mode: 'insensitive' as const } },
                 { description: { contains: query, mode: 'insensitive' as const } },
             ],
+        }),
+        // Free for the whole stay: no reservation overlaps it (check-out days are exclusive)
+        ...(dates && {
+            reservations: { none: { checkIn: { lt: dates.checkOut }, checkOut: { gt: dates.checkIn } } },
         }),
     };
     const allHome = await db.home.findMany({

@@ -27,7 +27,7 @@ async function Navbar() {
       <Container>
         <div className='flex h-16 items-center justify-between gap-4 md:h-20'>
           <Logo />
-          {search('hidden md:block w-full max-w-sm')}
+          {search('hidden md:block w-full max-w-xl')}
           <div className='flex shrink-0 items-center gap-2'>
             <AddHome />
             <LinksDropDown user={user} />

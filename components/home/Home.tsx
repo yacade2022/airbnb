@@ -3,12 +3,20 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import EmptyState from '@/components/global/EmptyState';
 import HomeCard, { homesGridClass } from './HomeCard';
+import { formatStayDates } from '@/lib/format';
 
-async function Home({ category, search }: { category?: string; search?: string }) {
+type HomeProps = {
+  category?: string;
+  search?: string;
+  // Only homes free for the whole stay are shown
+  dates?: { checkIn: Date; checkOut: Date };
+};
+
+async function Home({ category, search, dates }: HomeProps) {
   let homes: Awaited<ReturnType<typeof fetchAllHome>>;
   let favoriteIds: Set<string>;
   try {
-    [homes, favoriteIds] = await Promise.all([fetchAllHome(category, search), fetchFavoriteIds()]);
+    [homes, favoriteIds] = await Promise.all([fetchAllHome(category, search, dates), fetchFavoriteIds()]);
   } catch (error) {
     // Handled here so a database failure doesn't take down the whole page
     console.error('Error fetching homes:', error);
@@ -24,7 +32,8 @@ async function Home({ category, search }: { category?: string; search?: string }
     );
   }
 
-  const isFiltered = Boolean(category || search);
+  const isFiltered = Boolean(category || search || dates);
+  const stay = dates && formatStayDates(dates.checkIn, dates.checkOut);
 
   if (homes.length === 0) {
     if (!isFiltered) {
@@ -40,9 +49,11 @@ async function Home({ category, search }: { category?: string; search?: string }
       <EmptyState
         title="No matching homes"
         description={
-          search
-            ? `Nothing matches “${search}”${category ? ` in ${category}` : ''}. Try a different place name or category.`
-            : `There are no ${category} homes yet. Try another category or browse everything.`
+          stay
+            ? `No ${category ? `${category} ` : ''}homes${search ? ` matching “${search}”` : ''} are free ${stay}. Try different dates or a wider search.`
+            : search
+              ? `Nothing matches “${search}”${category ? ` in ${category}` : ''}. Try a different place name or category.`
+              : `There are no ${category} homes yet. Try another category or browse everything.`
         }
       >
         <Button asChild variant="outline" className="h-11 px-5">
@@ -61,6 +72,7 @@ async function Home({ category, search }: { category?: string; search?: string }
         <h2 id="results-heading" aria-live="polite" className="text-lg font-semibold">
           {category ? `${count} in ${category}` : count}
           {search && <span className="font-normal text-muted-foreground"> matching “{search}”</span>}
+          {stay && <span className="font-normal text-muted-foreground"> · free {stay}</span>}
         </h2>
         {isFiltered && (
           <Link href="/" className="-my-3 inline-block py-3 text-sm font-medium underline underline-offset-4 hover:text-brand">

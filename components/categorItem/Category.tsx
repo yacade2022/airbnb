@@ -30,11 +30,15 @@ export default function Category() {
     }
   }, [search]);
 
-  // Switching category keeps the current search
+  // Switching category keeps the current search and dates
   const hrefFor = (filter?: string) => {
     const params = new URLSearchParams();
     if (filter) params.set("filter", filter);
     if (query) params.set("q", query);
+    for (const key of ["checkIn", "checkOut"]) {
+      const value = searchParams.get(key);
+      if (value) params.set(key, value);
+    }
     const qs = params.toString();
     return qs ? `${pathname}?${qs}` : pathname;
   };
