@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // vi.mock calls are hoisted, so the mocks they use must be hoisted too
-const { db, tx, guest, revalidatePath, redirect } = vi.hoisted(() => {
+const { db, tx, guest, getCurrentUser, revalidatePath, redirect } = vi.hoisted(() => {
   const tx = {
     home: { findUnique: vi.fn() },
     reservation: { findFirst: vi.fn(), create: vi.fn() },
@@ -16,6 +16,7 @@ const { db, tx, guest, revalidatePath, redirect } = vi.hoisted(() => {
       $transaction: vi.fn((callback: (client: typeof tx) => unknown) => callback(tx)),
     },
     guest: { getGuestId: vi.fn(), getOrCreateGuestId: vi.fn() },
+    getCurrentUser: vi.fn(),
     revalidatePath: vi.fn(),
     // The real redirect() throws to stop execution; mimic that
     redirect: vi.fn(() => {
@@ -27,6 +28,11 @@ const { db, tx, guest, revalidatePath, redirect } = vi.hoisted(() => {
 vi.mock('./db', () => ({ default: db }));
 vi.mock('@/lib/supabase', () => ({ getSupabase: vi.fn() }));
 vi.mock('@/lib/guest', () => guest);
+// Booking requires a logged-in user; only the session lookup is faked
+vi.mock('@/lib/auth', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/auth')>()),
+  getCurrentUser,
+}));
 vi.mock('next/cache', () => ({ revalidatePath }));
 vi.mock('next/navigation', () => ({ redirect }));
 
@@ -47,6 +53,7 @@ const book = (overrides?: Record<string, string>) => createReservation({}, booki
 beforeEach(() => {
   vi.clearAllMocks();
   vi.useFakeTimers({ now: NOW, toFake: ['Date'] });
+  getCurrentUser.mockResolvedValue({ id: 'user-1', name: 'Ana', email: 'ana@example.com', role: 'USER' });
   guest.getGuestId.mockResolvedValue('guest-1');
   guest.getOrCreateGuestId.mockResolvedValue('guest-1');
   db.home.findUnique.mockResolvedValue({ id: 'home-1' });
@@ -102,6 +109,16 @@ describe('fetchFavoriteIds', () => {
 });
 
 describe('createReservation', () => {
+  it('sends logged-out visitors to log in, keeping their dates, and books nothing', async () => {
+    getCurrentUser.mockResolvedValue(null);
+
+    await expect(book()).rejects.toThrow('NEXT_REDIRECT');
+    expect(redirect).toHaveBeenCalledWith(
+      '/login?next=' + encodeURIComponent('/homes/home-1?checkIn=2026-11-01&checkOut=2026-11-04&guests=2')
+    );
+    expect(tx.reservation.create).not.toHaveBeenCalled();
+  });
+
   it('saves the booking with nights x price and redirects to the reservations page', async () => {
     await expect(book()).rejects.toThrow('NEXT_REDIRECT');
     expect(tx.reservation.create).toHaveBeenCalledWith({

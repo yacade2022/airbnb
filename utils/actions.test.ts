@@ -149,6 +149,7 @@ describe('addHomeToList success', () => {
         description: 'Sunny flat near the river',
         price: 120,
         photo: PUBLIC_URL,
+        gallery: [],
         ownerId: 'user-1',
       },
     });

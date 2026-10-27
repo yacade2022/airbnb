@@ -51,7 +51,7 @@ const edit = (overrides?: Record<string, string>) => updateHome({}, editForm(ove
 
 beforeEach(() => {
   vi.clearAllMocks();
-  db.home.findUnique.mockResolvedValue({ ownerId: owner.id, photo: PHOTO });
+  db.home.findUnique.mockResolvedValue({ ownerId: owner.id, photo: PHOTO, gallery: [] });
   db.home.update.mockResolvedValue({});
   db.home.delete.mockResolvedValue({});
   db.user.delete.mockResolvedValue({});
@@ -80,7 +80,7 @@ describe('updateHome', () => {
 
   it('refuses to let a regular user edit a listing with no owner', async () => {
     getCurrentUser.mockResolvedValue(stranger);
-    db.home.findUnique.mockResolvedValue({ ownerId: null, photo: PHOTO });
+    db.home.findUnique.mockResolvedValue({ ownerId: null, photo: PHOTO, gallery: [] });
 
     expect((await edit()).error).toBe('You can only edit your own listings.');
     expect(db.home.update).not.toHaveBeenCalled();
@@ -92,7 +92,7 @@ describe('updateHome', () => {
     await expect(edit()).rejects.toThrow('NEXT_REDIRECT');
     expect(db.home.update).toHaveBeenCalledWith({
       where: { id: 'home-1' },
-      data: { title: 'Beach', location: 'Lisbon, Portugal', description: 'Sunny flat', price: 150 },
+      data: { title: 'Beach', location: 'Lisbon, Portugal', description: 'Sunny flat', price: 150, gallery: [] },
     });
     expect(bucket.upload).not.toHaveBeenCalled();
     expect(redirect).toHaveBeenCalledWith('/homes/home-1?updated=1');
