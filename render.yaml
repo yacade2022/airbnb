@@ -1,0 +1,26 @@
+# Render Blueprint: one free web service, separate from any other Render projects.
+# The database and file storage live in Supabase, so no Render database is created.
+services:
+  - type: web
+    name: airbnb-listings-app
+    runtime: node
+    plan: free
+    branch: ui-polish-listing-details
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20.18.0
+      # Secrets: entered in the Render dashboard, never committed (sync: false)
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
