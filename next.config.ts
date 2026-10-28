@@ -1,6 +1,9 @@
+import path from "path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // A stray lockfile in the home folder otherwise makes Next.js pick the wrong workspace root
+  outputFileTracingRoot: path.join(__dirname),
   experimental: {
     serverActions: {
       // Default is 1mb, too small for photos. A listing sends a cover photo and up to two gallery
