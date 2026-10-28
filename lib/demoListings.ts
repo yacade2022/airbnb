@@ -1,6 +1,6 @@
 // Demo listings added by scripts/seed-demo-listings.mjs, one per photo in public/images/categories.
-// The photos come from Wikimedia Commons and are credited on /credits, which every page links to
-// from the footer, not next to the photo (see CREDITS_PAGE_LICENSES in lib/imageCredits.ts).
+// The photos come from Wikimedia Commons and are credited on each listing's page, which cards and
+// thumbnails link to (see LINKED_CREDIT_LICENSES in lib/imageCredits.ts).
 // Keep public/images/categories/ATTRIBUTION.md in sync with demoListings.json.
 import demoListingsJson from './demoListings.json';
 
@@ -37,3 +37,7 @@ const creditsBySrc = new Map(demoPhotos.map((photo) => [photo.src, photo]));
 
 // The credit (with alt text) for a listing's cover or gallery photo, or undefined for photos uploaded by hosts
 export const findDemoPhotoCredit = (photo: string) => creditsBySrc.get(photo);
+
+// The credits for those of these photos that are demo photos, in order
+export const findDemoPhotoCredits = (photos: string[]) =>
+  photos.map(findDemoPhotoCredit).filter((credit): credit is DemoPhotoCredit => credit !== undefined);

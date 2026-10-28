@@ -11,6 +11,7 @@ import FavoriteButton from '@/components/home/FavoriteButton';
 import ReservationForm from '@/components/form/ReservationForm';
 import ListingActions from '@/components/home/ListingActions';
 import HomeGallery from '@/components/home/HomeGallery';
+import PhotoCredits from '@/components/home/PhotoCredits';
 import { findDemoPhotoCredit } from '@/lib/demoListings';
 import { canManageHome, getCurrentUser } from '@/lib/auth';
 import { MAX_GUESTS, parseDateInput } from '@/lib/reservationRules';
@@ -194,6 +195,7 @@ async function HomeDetailsPage({ params, searchParams }: HomePageProps) {
           <h2 id="about-heading" className="text-xl font-semibold">About this home</h2>
           <p className="mt-3 max-w-prose whitespace-pre-line leading-relaxed break-words">{home.description}</p>
           <HomeGallery home={home} />
+          <PhotoCredits photos={[home.photo, ...home.gallery]} />
         </section>
       </div>
     </article>

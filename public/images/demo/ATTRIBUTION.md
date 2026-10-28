@@ -17,9 +17,8 @@ License text: https://creativecommons.org/publicdomain/zero/1.0/
 
 ## Attribution requirements
 
-None: CC0 waives all rights, so no credit is required. The photos are still listed on the
-Image credits page (`/credits`, data in `lib/imageCredits.ts`) as a courtesy. No credit
-caption is shown next to them.
+None: CC0 waives all rights, so no credit is required and none is shown on the site. The source
+details above (also in `lib/imageCredits.ts`) are kept for reference.
 
 These replace three CC BY 2.0 photos used earlier. CC BY 2.0 has no clause allowing credit
 only on a separate linked page, so they were replaced rather than shown without a caption.

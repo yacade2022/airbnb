@@ -1,11 +1,12 @@
 // Decorative photos bundled in public/images/demo. They are illustrative only and are
-// not photos of any listed property. Photos are credited only on /credits, which every page
-// links to from the footer, never next to the photo. Keep public/images/demo/ATTRIBUTION.md in sync.
+// not photos of any listed property. They are CC0, so they need no credit and none is shown.
+// Keep public/images/demo/ATTRIBUTION.md in sync.
 
-// Licenses that allow that. CC 4.0 lets credit be given through a link to a page that contains it
+// Licenses allowed for listing photos. Those are credited on the listing's page, which cards and
+// thumbnails link to: CC 4.0 lets credit be given through a link to a page that contains it
 // (section 3(a)(2)); CC0 and public domain need no credit. Older CC versions (2.0 to 3.0) have no
 // such clause, so photos under them must be replaced rather than credited away from the image
-export const CREDITS_PAGE_LICENSES = /^(CC BY(-SA)? 4\.0|CC0|Public domain)$/;
+export const LINKED_CREDIT_LICENSES = /^(CC BY(-SA)? 4\.0|CC0|Public domain)$/;
 
 export type ImageCredit = {
   src: string;

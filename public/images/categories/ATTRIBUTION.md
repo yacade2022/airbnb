@@ -11,14 +11,15 @@ each image was checked visually for text, signs, logos and watermarks.
 
 ## Where credit is given
 
-No photo has a credit caption next to it. Every photo is credited on the **Image credits** page
-(`/credits`), linked from the footer of every page, with its title, creator, source link and
-license link.
+Every photo is credited on its listing's page (`/homes/<id>`), in a **Photo credits** list under the
+gallery, with its title linking to the source page, its creator, a license link and a note of the
+changes made. Cards and thumbnails elsewhere (home page, favorites, reservations, my listings, admin)
+have no caption, but each links to the listing page.
 
 - **CC BY 4.0 / CC BY-SA 4.0**: section 3(a)(2) of the 4.0 licenses allows the credit to be
   given "by providing a URI or hyperlink to a resource that includes the required information",
-  which the footer link to `/credits` does.
-- **CC0 / public domain**: no credit is required; they are listed on `/credits` as a courtesy.
+  which the card's link to the listing page does.
+- **CC0 / public domain**: no credit is required; they are listed on the listing page as a courtesy.
 - **Older licenses (CC 2.0, 2.5, 3.0) are not used.** They have no equivalent clause, so the
   photos that used them were replaced with CC0 photos instead of removing their captions.
   `lib/demoListings.test.ts` fails if a photo under any other license is added.
@@ -89,7 +90,7 @@ Extra photos of a listing's property, shown beside its description on the listin
 `lib/demoListings.json`). They are named after the cover they belong to: `historic/01-a.png` and
 `historic/01-b.png` go with `historic/01.png`. Each one shows the same building or resort as the cover;
 scenery-only photos are not used. They were checked, downloaded and converted the same way as the covers above, and are credited on
-`/credits` the same way.
+the listing page the same way.
 
 | File | Title | Creator | License | Requirement | Source page |
 | --- | --- | --- | --- | --- | --- |

@@ -1,8 +1,8 @@
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { DEMO_PHOTO_PREFIX, demoListings, demoPhotos, findDemoPhotoCredit } from './demoListings';
-import { CREDITS_PAGE_LICENSES, imageCredits } from './imageCredits';
+import { DEMO_PHOTO_PREFIX, demoListings, demoPhotos, findDemoPhotoCredit, findDemoPhotoCredits } from './demoListings';
+import { LINKED_CREDIT_LICENSES, imageCredits } from './imageCredits';
 import { categoryHouses } from './categoryHouses';
 import { MAX_DESCRIPTION_LENGTH, MAX_GALLERY_PHOTOS, MAX_LOCATION_LENGTH } from './listingRules';
 
@@ -55,19 +55,23 @@ describe('demo listings', () => {
 });
 
 describe('photo licenses', () => {
-  // Photos are credited only on /credits, so each license must allow that (or need no credit)
-  const allPhotos = [...demoPhotos, ...Object.values(imageCredits)];
+  // Listing photos are credited on the listing's page, not on cards that link to it,
+  // so each license must allow that (or need no credit)
+  it.each(demoPhotos.map((photo) => [photo.src, photo.license]))('%s (%s) can be credited on the listing page', (_src, license) => {
+    expect(license).toMatch(LINKED_CREDIT_LICENSES);
+  });
 
-  it.each(allPhotos.map((photo) => [photo.src, photo.license]))('%s (%s) can be credited on /credits only', (_src, license) => {
-    expect(license).toMatch(CREDITS_PAGE_LICENSES);
+  // Site photos have no credit anywhere
+  it.each(Object.values(imageCredits).map((photo) => [photo.src, photo.license]))('%s (%s) needs no credit', (_src, license) => {
+    expect(license).toMatch(/^(CC0|Public domain)$/);
   });
 
   it('accepts CC 4.0, CC0 and public domain, and rejects older CC versions', () => {
     for (const license of ['CC BY 4.0', 'CC BY-SA 4.0', 'CC0', 'Public domain']) {
-      expect(license).toMatch(CREDITS_PAGE_LICENSES);
+      expect(license).toMatch(LINKED_CREDIT_LICENSES);
     }
     for (const license of ['CC BY 2.0', 'CC BY-SA 2.5', 'CC BY 3.0', 'CC BY-SA 3.0']) {
-      expect(license).not.toMatch(CREDITS_PAGE_LICENSES);
+      expect(license).not.toMatch(LINKED_CREDIT_LICENSES);
     }
   });
 });
@@ -80,5 +84,13 @@ describe('findDemoPhotoCredit', () => {
 
   it('returns nothing for photos uploaded by hosts', () => {
     expect(findDemoPhotoCredit('https://example.supabase.co/storage/v1/object/public/image/a.avif')).toBeUndefined();
+  });
+});
+
+describe('findDemoPhotoCredits', () => {
+  it("returns a listing's credits in order, skipping photos uploaded by hosts", () => {
+    const listing = demoListings.find((l) => l.gallery?.length)!;
+    const photos = [listing.photo.src, 'https://example.supabase.co/storage/v1/object/public/image/a.avif', ...listing.gallery!.map((p) => p.src)];
+    expect(findDemoPhotoCredits(photos)).toEqual([listing.photo, ...listing.gallery!]);
   });
 });

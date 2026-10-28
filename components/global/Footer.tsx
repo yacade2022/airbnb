@@ -11,7 +11,6 @@ function Footer() {
               <li><Link href='/addHomeToList' className='hover:text-foreground hover:underline'>Airbnb your home</Link></li>
               <li><Link href='/favorites' className='hover:text-foreground hover:underline'>My Favorites</Link></li>
               <li><Link href='/reservations' className='hover:text-foreground hover:underline'>My Reservations</Link></li>
-              <li><Link href='/credits' className='hover:text-foreground hover:underline'>Image credits</Link></li>
             </ul>
           </nav>
         </div>

@@ -69,11 +69,12 @@ function LinksDropDown({ user }: { user: CurrentUser | null }) {
             </DropdownMenuItem>
           </>
         )}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild className='min-h-11'>
-          <Link href='/credits'>Image credits</Link>
-        </DropdownMenuItem>
-        {user && <LogoutItem />}
+        {user && (
+          <>
+            <DropdownMenuSeparator />
+            <LogoutItem />
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )
